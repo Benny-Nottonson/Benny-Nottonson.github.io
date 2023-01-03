@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html id="app" lang="en" dir="ltr">
+<head>
+    <title>Spotify Utils</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Enhance your spotify experience">
+    <meta name="author" content="Benny Nottonson">
+    <meta name="keywords" content="spotify,utils,enhance,spotify utils,spotify utilities">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Spartan:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
+    <script src="https://code.jquery.com/jquery-migrate-3.0.0.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/spotify-web-api.js"></script>
+    <script src="/js/bundle.js"></script>
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">  
+</head>
+<body onload="checkToken()">
+    <header>
+        <a class="navbar" href="/html/index.html">
+            <div class ="logo">
+                <svg width="256" height="256" viewBox="0 0 256 256"><defs><clipPath id="a"><path d="M0 0h256v256H0z"/></clipPath></defs><g data-name="Custom Size – 1" clip-path="url(#a)"><circle data-name="Ellipse 1" cx="105" cy="105" r="105" transform="translate(23 23)" fill="#fff"/><path data-name="Path 1" d="M100.672 77.958c-9.74.837-20.924 6.467-32.939 16.537-4.328 3.61-9.933 9.076-10.461 10.186a4.438 4.438 0 0 0 5.106 6.3 6.278 6.278 0 0 0 2.275-1.586c2-2.137 7.715-7.325 10.628-9.685 7.909-6.351 16.649-10.985 23.587-12.538 5.161-1.137 12.708-.194 21.7 2.72 7.658 2.469 12.958 4.633 26.721 10.849 19.172 8.654 23.723 10.211 29.967 10.211a23.326 23.326 0 0 0 8.769-1.526c5.578-2.109 11.931-8.047 12.265-11.516a4.05 4.05 0 0 0-4.079-4.662c-2.054-.111-3 .5-4.578 2.941a15.144 15.144 0 0 1-2.275 2.8c-3.635 3-9.268 3.913-14.956 2.387-3.774-1-9.963-3.5-20.951-8.462-15.844-7.187-23.17-10.156-29.969-12.154-7.963-2.358-15.123-3.301-20.81-2.802Z" opacity=".83"/><path data-name="Path 2" d="M100.672 110.958c-9.74.837-20.924 6.467-32.939 16.537-4.328 3.61-9.933 9.076-10.461 10.186a4.438 4.438 0 0 0 5.106 6.3 6.278 6.278 0 0 0 2.275-1.586c2-2.137 7.715-7.325 10.628-9.685 7.909-6.351 16.649-10.985 23.587-12.538 5.161-1.137 12.708-.194 21.7 2.72 7.658 2.469 12.958 4.633 26.721 10.849 19.172 8.654 23.723 10.211 29.967 10.211a23.326 23.326 0 0 0 8.769-1.526c5.578-2.109 11.931-8.047 12.265-11.516a4.05 4.05 0 0 0-4.079-4.662c-2.054-.111-3 .5-4.578 2.941a15.144 15.144 0 0 1-2.275 2.8c-3.635 3-9.268 3.913-14.956 2.387-3.774-1-9.963-3.5-20.951-8.462-15.844-7.187-23.17-10.156-29.969-12.154-7.963-2.358-15.123-3.301-20.81-2.802Z" opacity=".83"/><path data-name="Path 3" d="M100.672 145.958c-9.74.837-20.924 6.467-32.939 16.537-4.328 3.61-9.933 9.076-10.461 10.186a4.438 4.438 0 0 0 5.106 6.3 6.278 6.278 0 0 0 2.275-1.586c2-2.137 7.715-7.325 10.628-9.685 7.909-6.351 16.649-10.985 23.587-12.538 5.161-1.137 12.708-.194 21.7 2.72 7.658 2.469 12.958 4.633 26.721 10.849 19.172 8.654 23.723 10.211 29.967 10.211a23.326 23.326 0 0 0 8.769-1.526c5.578-2.109 11.931-8.047 12.265-11.516a4.05 4.05 0 0 0-4.079-4.662c-2.054-.111-3 .5-4.578 2.941a15.144 15.144 0 0 1-2.275 2.8c-3.635 3-9.268 3.913-14.956 2.387-3.774-1-9.963-3.5-20.951-8.462-15.844-7.187-23.17-10.156-29.969-12.154-7.963-2.358-15.123-3.301-20.81-2.802Z" opacity=".83"/></g></svg>
+            </div>
+            <h4 class="navtext">Spotify Utilities</h4>
+        </a>
+        <div class="green-rect"></div>
+    </header>
+    <script>
+        var spot = new SpotifyWebApi();
+        spot.setAccessToken(localStorage.getItem('accessToken'));
+        function checkToken() {
+            if (localStorage.getItem('accessToken') == null) {
+                window.location.href = '/html/index.html';
+            }else {
+                spot.getMe().then(function(data) {
+                    document.querySelector('.console-text').innerHTML = '<p id="console-text">Click the button above to load your playlists.</p><p id="console-text">Welcome, ' + data.display_name + '!</p>';
+                }).catch(function(err) {
+                    localStorage.removeItem('accessToken');
+                    window.location.href = '/html/index.html';
+                });
+            }
+            load();
+        }
+        function logout() {
+            localStorage.removeItem('accessToken');
+            window.location.href = '/html/index.html';
+        }
+        function clearPlaylist() {
+            var spot = new SpotifyWebApi();
+            spot.setAccessToken(localStorage.getItem('accessToken'));
+            var playlistID = document.querySelector('.playlists').value;
+            getPlaylistTracksWrapper(spot, playlistID)
+                .then(function(data) {
+                    tracks = [];
+                    for (var i = 0; i < data.length; i++) {
+                        tracks.push(data[i].track.uri);
+                    };
+                    refillPlaylistItems(spot, playlistID, tracks)
+                        .then(function() {
+                            currentHTML = document.getElementsByClassName("console-text")[0].innerHTML;
+                            document.getElementsByClassName("console-text")[0].innerHTML = "<br><p id='console-text'>Cleared Playlist!</p>" + currentHTML;
+                        });
+                });
+        }
+        function load() {
+            var spot = new SpotifyWebApi();
+            spot.setAccessToken(localStorage.getItem('accessToken'));
+            var playlists = document.querySelector('.playlists');
+            spot.getUserPlaylists().then(function(data) {
+                for (var i = 0; i < data.items.length; i++) {
+                    var option = document.createElement('option');
+                    option.value = data.items[i].id;
+                    option.innerHTML = data.items[i].name;
+                    playlists.appendChild(option);
+                }
+                currentHTML = document.getElementsByClassName("console-text")[0].innerHTML;
+                document.getElementsByClassName("console-text")[0].innerHTML = "<p id='console-text'>Playlists Retrieved!</p>" + currentHTML;
+            }).catch(function(err) {
+                console.log(err);
+            });
+            document.querySelector('.load').innerHTML = 'Sort';
+            document.querySelector('.load').onclick = function() {
+                getPlaylistTracksWrapper(spot, playlists.value).then(function(data) {
+                    tracks = [];
+                    for (var i = 0; i < data.length; i++) {
+                        tracks.push([data[i].track.uri, data[i].track.album.images[2].url]);
+                    };
+                    createDataFrame(tracks).then(function (df) {
+                        document.getElementById("progress-bar").style.width = "0%";
+                        currentHTML = document.getElementsByClassName("console-text")[0].innerHTML;
+                        document.getElementsByClassName("console-text")[0].innerHTML = "<p id='console-text'>Training SOM</p>" + currentHTML;
+                        bands = []
+                        brightness = []
+                        vividness = []
+                        id = []
+                        for (var i = 0; i < df['bands'].length; i++) {
+                            bands.push(df['bands'][i]);
+                            brightness.push(df['brightness'][i]);
+                            vividness.push(df['vividness'][i]);
+                            id.push(df['trackID'][i]);
+                        }
+                        data = [bands, brightness, vividness, id];
+                        samples = [];
+                        for (var i = 0; i < data[0].length; i++) {
+                            samples.push({
+                                'bands': data[0][i],
+                                'brightness': data[1][i],
+                                'vividness': data[2][i],
+                                'id': data[3][i]
+                            })}
+                        som = createSOMPublic();
+                        som.train(samples);
+                        prediction = som.predict(samples, true)
+                        currentHTML = document.getElementsByClassName("console-text")[0].innerHTML;
+                        document.getElementsByClassName("console-text")[0].innerHTML = "<p id='console-text'>Mapping Predictions</p>" + currentHTML;
+                        samplesAndPredictions = {};
+                        for (var i = 0; i < samples.length; i++) {
+                            samplesAndPredictions[samples[i]['id']] = prediction[i];
+                        }
+                        var sorted = Object.keys(samplesAndPredictions).sort(function(a, b) {
+                            var x1 = samplesAndPredictions[a][0];
+                            var y1 = samplesAndPredictions[a][1];
+                            var x2 = samplesAndPredictions[b][0];
+                            var y2 = samplesAndPredictions[b][1];
+                            if (x1 < x2) {
+                                return -1;
+                            } else if (x1 > x2) {
+                                return 1;
+                            } else {
+                                if (y1 < y2) {
+                                    return -1;
+                                } else if (y1 > y2) {
+                                    return 1;
+                                } else {
+                                    return 0;
+                                }
+                            }
+                        });
+                        currentHTML = document.getElementsByClassName("console-text")[0].innerHTML;
+                        document.getElementsByClassName("console-text")[0].innerHTML = "<p id='console-text'>Refilling Playlist</p>" + currentHTML;
+                        playlistID = playlists.value;   
+                        spot = new SpotifyWebApi();
+                        spot.setAccessToken(localStorage.getItem('accessToken'));
+                        refillPlaylistItems(spot, playlistID, sorted).then(function(data) {
+                            reAddItems(spot, playlistID, sorted).then(function(data) {
+                                var script = document.createElement('script');
+                                script.src = '/js/bundle.js';
+                                var scripts = document.getElementsByTagName('script');
+                                for (var i = 0; i < scripts.length; i++) {
+                                    if (scripts[i].src == script.src) {
+                                        scripts[i].parentNode.removeChild(scripts[i]);
+                                    }
+                                }
+                                document.body.appendChild(script);
+                                playlists.selectedIndex = 0;
+                                document.getElementById("progress-bar").style.width = 0;
+                                currentHTML = document.getElementsByClassName("console-text")[0].innerHTML;
+                                document.getElementsByClassName("console-text")[0].innerHTML = "<br><p id='console-text'>Done!</p>" + currentHTML;
+                            });
+                        }).catch(function(err) {
+                            console.log(err);
+                        });
+                    });
+                }).catch(function(err) {
+                    console.log(err);
+                });
+            };
+        }
+
+        async function getImageData(url) {
+            return new Promise(function(resolve, reject) {
+                var image = new Image();
+                image.src = url;
+                image.width = 32;
+                image.height = 32;
+                image.crossOrigin = "Anonymous";
+                image.onload = function() {
+                    var canvas = document.createElement('canvas');
+                    canvas.width = image.width;
+                    canvas.height = image.height;
+                    var ctx = canvas.getContext('2d', { willReadFrequently : true });
+                    ctx.drawImage(image, 0, 0);
+                    var data = ctx.getImageData(0, 0, image.width, image.height);
+                    var r = [];
+                    var g = [];
+                    var b = [];
+                    for (var i = 0; i < data.data.length; i += 4) {
+                        r.push(data.data[i]);
+                        g.push(data.data[i + 1]);
+                        b.push(data.data[i + 2]);
+                    }
+                    resolve([r, g, b]);
+                };
+                image.onerror = function(err) {
+                    reject(err);
+                };
+            });
+        }
+
+        async function createDataFrame(playlistItems) {
+            currentHTML = document.getElementsByClassName("console-text")[0].innerHTML;
+            document.getElementsByClassName("console-text")[0].innerHTML = "<p id='console-text'>Creating data frame...</p>" + currentHTML;
+            var trackData = {};
+            for (var i = 0; i < playlistItems.length; i++) {
+                var data = await getImageData(playlistItems[i][1]);
+                trackData[playlistItems[i][0]] = data;
+            }
+            var trackIDs = Object.keys(trackData);
+            var bands = [];
+            var brightness = [];
+            var vividness = [];
+            for (var i = 0; i < trackIDs.length; i++) {
+                var data = trackData[trackIDs[i]];
+                var bandsAndBrightness = await getBandsAndBrightness(data);
+                bands.push(bandsAndBrightness[0]);
+                brightness.push(bandsAndBrightness[1]);
+                vividness.push(bandsAndBrightness[2]);
+                var percent = Math.round((i + 1) / trackIDs.length * 100);
+                document.getElementById("progress-bar").style.width = percent + "%";
+            }
+            bands = bands.map(function(band) {
+                var max = 0;
+                for (var i = 0; i < 12; i++) {
+                    if (band[i] > max) {
+                        max = band[i];
+                    }
+                }
+                for (var i = 0; i < 12; i++) {
+                    if (band[i] == max) {
+                        return i;
+                    }
+                }
+            });
+            var df = {
+                'trackID': trackIDs,
+                'bands': bands,
+                'brightness': brightness,
+                'vividness': vividness
+            }
+            return df;
+        }
+
+        async function getBandsAndBrightness(data) {
+            return new Promise(function(resolve, reject) {
+                var allBands = {};
+                var vividBands = {};
+                for (var i = 0; i < 12; i++) {
+                    allBands[i] = 0;
+                    vividBands[i] = 0;
+                }
+                perceivedLuminance = 0.0;
+                vividPixels = 0;
+                for (var i = 0; i < data[0].length; i++) {
+                    var color = normalizeColor([data[0][i], data[1][i], data[2][i]]).then(function(color) {
+                        hsy = rgbToHSY(color).then(function(hsy) {
+                            perceivedLuminance += hsy[2];
+                            ab = parseInt(((hsy[0] + 30) % 360) / 30);
+                            allBands[ab] += 1;
+                            if (isVivid(hsy[1], hsy[2])) {
+                                vb = parseInt(((hsy[0] + 30) % 360) / 30);
+                                vividBands[vb] += 1;
+                                vividPixels += 1;
+                            }
+                        }).then(function() {
+                            vividPixels = 0;
+                            for (var i = 0; i < 12; i++) {
+                                vividPixels += vividBands[i];
+                            }
+                            if (vividPixels > 0) {
+                                bands = vividBands;
+                                bandPixels = vividPixels;
+                            } else {
+                                bands = allBands;
+                                bandPixels = data[0].length;
+                            }
+                            for (var i = 0; i < 12; i++) {
+                                bands[i] = bands[i] / bandPixels;
+                            }
+                            perceivedLuminance = perceivedLuminance / data[0].length;
+                            vividness = vividPixels / 1024;
+                            resolve([bands, perceivedLuminance, vividness]);
+                        });
+                    });
+                }
+            });
+        }
+
+        async function isVivid(s, Y) {
+            return new Promise(function(resolve, reject) {
+                if (s > 0.15 && Y > 0.18 && Y < 0.95) {
+                    resolve(true);
+                } else {
+                    resolve(false);
+                }
+            });
+        }
+
+        async function normalizeColor(color) {
+            return new Promise(function(resolve, reject) {
+                resolve([color[0] / 255, color[1] / 255, color[2] / 255]);
+            });
+        }
+
+        async function rgbToHSY(rgb) {  
+            return new Promise(function(resolve, reject) {
+                var r = 0.0;
+                var g = 0.0;
+                var b = 0.0;
+                var h = 0.0;
+                var s = 0.0;
+                var y = 0.0;
+                r = rgb[0];
+                g = rgb[1];
+                b = rgb[2];
+                maxc = Math.max(r, g, b);
+                minc = Math.min(r, g, b);
+                sumc = maxc + minc;
+                rangec = maxc - minc;
+                mid = sumc / 2;
+                if (minc == maxc) {
+                    resolve([0.0, mid, 0.0]);
+                } else if (mid <= 0.5) {
+                    s = rangec / sumc;
+                } else {
+                    s = rangec / (2 - sumc);
+                }
+                rc = (maxc - r) / rangec;
+                gc = (maxc - g) / rangec;
+                bc = (maxc - b) / rangec;
+                if (r == maxc) {
+                    h = bc - gc;
+                } else if (g == maxc) {
+                    h = 2 + rc - bc;
+                } else {
+                    h = 4 + gc - rc;
+                }
+                h = parseInt((h / 6.0) % 1.0 * 360);
+                Y = 0.2126 * r ** 2.2 + 0.7152 * g ** 2.2 + 0.0722 * b ** 2.2;
+                resolve([h, s, Y]);
+            });
+        }
+
+        async function getPlaylistTracksWrapper(spot, playlistID) {
+            return new Promise(function(resolve, reject) {
+                var offset = 0;
+                var limit = 100;
+                var total = 1;
+                var tracks;
+                spot.getPlaylistTracks(playlistID)
+                    .then(function(tracks) {
+                        total = tracks.total;
+                        tracks = tracks.items;
+                        while (offset < total) {
+                            offset += limit;
+                            spot.getPlaylistTracks(playlistID, {
+                                    offset: offset,
+                                    limit: limit
+                                })
+                                .then(function(tracks2) {
+                                    tracks = tracks.concat(tracks2.items);
+                                    if (tracks.length == total) {
+                                        resolve(tracks);
+                                    }
+                                });
+                        }
+                    });
+            });
+        }
+        
+        async function refillPlaylistItems(spot, playlistID, tracks) {
+            var offset = 0;
+            var limit = 100;
+            var total = tracks.length;
+            while (offset <= total) {
+                await spot.removeTracksFromPlaylist(playlistID, tracks.slice(offset, offset + limit));
+                offset += limit;    
+            }
+            return new Promise(function(resolve, reject) {
+                resolve();
+            });
+        }
+
+        async function reAddItems(spot, playlistID, tracks) {
+            var offset = 0;
+            var limit = 100;
+            var total = tracks.length;
+            while (offset <= total) {
+                await spot.addTracksToPlaylist(playlistID, tracks.slice(offset, offset + limit));
+                offset += limit;    
+            }
+            return new Promise(function(resolve, reject) {
+                resolve();
+            });
+        }
+
+        function checkClearPlaylist() {
+            var dialog = $('<div></div>')
+                .html('Are you sure you want to clear this playlist?')
+                .dialog({
+                    autoOpen: false,
+                    title: 'Clear Playlist',
+                    modal: true,
+                    buttons: {
+                        "Yes": function() {
+                            clearPlaylist();
+                            $(this).dialog("close");
+                        },
+                        "No": function() {
+                            $(this).dialog("close");
+                        }
+                    }
+                });
+            dialog.dialog('open');
+        }
+    </script>
+    <div class="main">
+        <h5 style="margin:0;">Spotify Sort</h5>
+        <select class="playlists"></select>
+        <div style="display:flex">
+            <button class="btn load" onclick="load()">Load</button>
+            <button class="btn load" onclick="checkClearPlaylist()">Clear</button>
+            <button class="btn load" onclick="logout()">Logout</button>
+        </div>
+        <div class="progress">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+        <div class="console">
+            <div class="console-text">
+                <p id="console-text"></p>
+            </div>
+        </div>
+        <svg id="wave" style="bottom:-20px; width:110%; transform:rotate(0deg); transition: 0.3s" viewBox="0 0 1440 490" version="1.1" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="sw-gradient-0" x1="0" x2="0" y1="1" y2="0"><stop stop-color="rgba(29, 185, 84, 1)" offset="0%"></stop><stop stop-color="rgba(18, 18, 18, 1)" offset="100%"></stop></linearGradient></defs><path style="transform:translate(0, 0px); opacity:1" fill="url(#sw-gradient-0)" d="M0,294L34.3,318.5C68.6,343,137,392,206,367.5C274.3,343,343,245,411,228.7C480,212,549,278,617,277.7C685.7,278,754,212,823,220.5C891.4,229,960,310,1029,302.2C1097.1,294,1166,196,1234,204.2C1302.9,212,1371,327,1440,367.5C1508.6,408,1577,376,1646,302.2C1714.3,229,1783,114,1851,81.7C1920,49,1989,98,2057,147C2125.7,196,2194,245,2263,220.5C2331.4,196,2400,98,2469,65.3C2537.1,33,2606,65,2674,98C2742.9,131,2811,163,2880,220.5C2948.6,278,3017,359,3086,400.2C3154.3,441,3223,441,3291,400.2C3360,359,3429,278,3497,220.5C3565.7,163,3634,131,3703,155.2C3771.4,180,3840,261,3909,310.3C3977.1,359,4046,376,4114,351.2C4182.9,327,4251,261,4320,236.8C4388.6,212,4457,229,4526,253.2C4594.3,278,4663,310,4731,318.5C4800,327,4869,310,4903,302.2L4937.1,294L4937.1,490L4902.9,490C4868.6,490,4800,490,4731,490C4662.9,490,4594,490,4526,490C4457.1,490,4389,490,4320,490C4251.4,490,4183,490,4114,490C4045.7,490,3977,490,3909,490C3840,490,3771,490,3703,490C3634.3,490,3566,490,3497,490C3428.6,490,3360,490,3291,490C3222.9,490,3154,490,3086,490C3017.1,490,2949,490,2880,490C2811.4,490,2743,490,2674,490C2605.7,490,2537,490,2469,490C2400,490,2331,490,2263,490C2194.3,490,2126,490,2057,490C1988.6,490,1920,490,1851,490C1782.9,490,1714,490,1646,490C1577.1,490,1509,490,1440,490C1371.4,490,1303,490,1234,490C1165.7,490,1097,490,1029,490C960,490,891,490,823,490C754.3,490,686,490,617,490C548.6,490,480,490,411,490C342.9,490,274,490,206,490C137.1,490,69,490,34,490L0,490Z"></path><defs><linearGradient id="sw-gradient-1" x1="0" x2="0" y1="1" y2="0"><stop stop-color="rgba(29, 185, 84, 1)" offset="0%"></stop><stop stop-color="rgba(18, 18, 18, 1)" offset="100%"></stop></linearGradient></defs><path style="transform:translate(0, 50px); opacity:0.9" fill="url(#sw-gradient-1)" d="M0,147L34.3,155.2C68.6,163,137,180,206,228.7C274.3,278,343,359,411,375.7C480,392,549,343,617,326.7C685.7,310,754,327,823,334.8C891.4,343,960,343,1029,294C1097.1,245,1166,147,1234,98C1302.9,49,1371,49,1440,89.8C1508.6,131,1577,212,1646,253.2C1714.3,294,1783,294,1851,277.7C1920,261,1989,229,2057,245C2125.7,261,2194,327,2263,326.7C2331.4,327,2400,261,2469,269.5C2537.1,278,2606,359,2674,359.3C2742.9,359,2811,278,2880,212.3C2948.6,147,3017,98,3086,114.3C3154.3,131,3223,212,3291,245C3360,278,3429,261,3497,212.3C3565.7,163,3634,82,3703,40.8C3771.4,0,3840,0,3909,65.3C3977.1,131,4046,261,4114,294C4182.9,327,4251,261,4320,204.2C4388.6,147,4457,98,4526,130.7C4594.3,163,4663,278,4731,318.5C4800,359,4869,327,4903,310.3L4937.1,294L4937.1,490L4902.9,490C4868.6,490,4800,490,4731,490C4662.9,490,4594,490,4526,490C4457.1,490,4389,490,4320,490C4251.4,490,4183,490,4114,490C4045.7,490,3977,490,3909,490C3840,490,3771,490,3703,490C3634.3,490,3566,490,3497,490C3428.6,490,3360,490,3291,490C3222.9,490,3154,490,3086,490C3017.1,490,2949,490,2880,490C2811.4,490,2743,490,2674,490C2605.7,490,2537,490,2469,490C2400,490,2331,490,2263,490C2194.3,490,2126,490,2057,490C1988.6,490,1920,490,1851,490C1782.9,490,1714,490,1646,490C1577.1,490,1509,490,1440,490C1371.4,490,1303,490,1234,490C1165.7,490,1097,490,1029,490C960,490,891,490,823,490C754.3,490,686,490,617,490C548.6,490,480,490,411,490C342.9,490,274,490,206,490C137.1,490,69,490,34,490L0,490Z"></path></svg></div>
+    </body>
+</html> 
