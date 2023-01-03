@@ -32,7 +32,6 @@
         var spot = new SpotifyWebApi();
         spot.setAccessToken(localStorage.getItem('accessToken'));
         function checkToken() {
-            /*
             if (localStorage.getItem('accessToken') == null) {
                 window.location.href = '/html/index.html';
             }else {
@@ -41,10 +40,8 @@
                 }).catch(function(err) {
                     localStorage.removeItem('accessToken');
                     window.location.href = '/html/index.html';
-                    console.log(err);
                 });
             }
-            */
             load();
         }
         function logout() {
