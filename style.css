@@ -166,9 +166,14 @@ h1 {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    line-height: 1.2;
+    line-height: 1;
     width: 20%;
+    height: 35px;
     margin: 20px;
+}
+
+.playlists:focus {
+    outline: none;
 }
 
 .progress {
@@ -196,11 +201,11 @@ h1 {
     padding: 10px 20px;
     border-radius: 20px;
     margin: 0px;
-    width: 60%;
-    height: 30%;
+    width: 40%;
+    height: 20%;
     overflow: auto;
     position:absolute;
-    top: 62%;
+    top: 75%;
     border: #343a40;
     border-style: solid;
     border-width: 1px;
@@ -216,11 +221,11 @@ h1 {
 }
 
 #console-text {
-    color: var(--white);
+    color: rgb(255 255 255 / 75%);
     font-family: monospace;
     font-size: 15px;
-    font-weight: 550;
-    line-height: 26px;
+    font-weight: 530;
+    line-height: 25px;
     margin:.5%;
 }
 
