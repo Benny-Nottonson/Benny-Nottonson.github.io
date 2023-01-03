@@ -1,5 +1,5 @@
 var client_id = 'b6bc56d7dc814e90b19c99b4249bcf86';
-var redirect_uri = 'http://localhost:8080/html/callback.html';
+var redirect_uri = 'https://bennynottonsonschool.github.io/html/callback.html';
 var scope = 'user-read-private user-read-email playlist-read-private playlist-read-collaborative playlist-modify-public playlist-modify-private';
 
 function login() {
