@@ -21,13 +21,13 @@ var spot = new SpotifyWebApi();
 spot.setAccessToken(localStorage.getItem('accessToken'));
 function checkToken() {
     if (localStorage.getItem('accessToken') == null) {
-        window.location.href = '/html/index.html';
+        window.location.href = '/spotifySort/html/index.html';
     }else {
         spot.getMe().then(function(data) {
             document.querySelector('.console-text').innerHTML = '<p id="console-text">Click the button above to load your playlists.</p><p id="console-text">Welcome, ' + data.display_name + '!</p>';
         }).catch(function(err) {
             localStorage.removeItem('accessToken');
-            window.location.href = '/html/index.html';
+            window.location.href = '/spotifySort/html/index.html';
             console.log(err);
         });
     }
@@ -36,7 +36,7 @@ function checkToken() {
 
 function logout() {
     localStorage.removeItem('accessToken');
-    window.location.href = '/html/index.html';
+    window.location.href = '/spotifySort/html/index.html';
 }
 function clearPlaylist() {
     var spot = new SpotifyWebApi();
@@ -138,7 +138,7 @@ function load() {
                 refillPlaylistItems(spot, playlistID, sorted).then(function(data) {
                     reAddItems(spot, playlistID, sorted).then(function(data) {
                         var script = document.createElement('script');
-                        script.src = '/js/bundle.js';
+                        script.src = '/spotifySort/js/bundle.js';
                         var scripts = document.getElementsByTagName('script');
                         for (var i = 0; i < scripts.length; i++) {
                             if (scripts[i].src == script.src) {
