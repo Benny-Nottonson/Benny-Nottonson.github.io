@@ -201,7 +201,7 @@ h1 {
     padding: 10px 20px;
     border-radius: 20px;
     margin: 0px;
-    width: 40%;
+    width: 80%;
     height: 20%;
     overflow: auto;
     position:absolute;
@@ -223,9 +223,9 @@ h1 {
 #console-text {
     color: rgb(255 255 255 / 75%);
     font-family: monospace;
-    font-size: 15px;
+    font-size: 2vmax;
     font-weight: 530;
-    line-height: 25px;
+    line-height: 5vmax;
     margin:.5%;
 }
 
