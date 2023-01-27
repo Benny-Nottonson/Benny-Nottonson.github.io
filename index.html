@@ -48,5 +48,21 @@
 				</figcaption>
 			</figure>
 		</div>
+		<div class="line"><h3></h3></div>
+		<script>
+			if (window.innerWidth < 600) {
+				var buttons = document.querySelector(".buttons");
+				buttons.style.flexDirection = "column";
+			}else {
+				var line = document.querySelector(".line");
+				var figures = document.querySelectorAll("figure");
+				var width = 0;
+				for (var i = 0; i < figures.length; i++) {
+					width += figures[i].offsetWidth + 60;
+				}
+				line.querySelector("h3").innerHTML = "Projects";
+				line.style.width = width + "px";
+			}
+		</script>
 	</body>
 </html>

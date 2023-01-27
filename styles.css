@@ -177,3 +177,12 @@ p {
     font-weight: 100;
     color: grey;
 }
+.line {
+    width:0;
+    height: 1px;
+    background-color: #fff;
+    margin: auto;
+    margin-top: 300px;
+    -webkit-transition: 2s ease-in-out;
+    transition: 2s ease-in-out;
+}
