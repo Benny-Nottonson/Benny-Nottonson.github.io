@@ -338,8 +338,3 @@ h1 {
 		opacity: 0;
 	}
 }
-
-::selection {
-	background-color: #ff0b55;
-	color: white;
-}
