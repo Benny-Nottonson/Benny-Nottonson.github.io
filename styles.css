@@ -24,7 +24,7 @@ body {
 }
 .buttons {
     position: absolute;
-    top: 50%;
+    top: 45%;
     left: 50%;
     transform: translate(-50%, -50%);
     display: flex;
@@ -182,7 +182,7 @@ p {
     height: 1px;
     background-color: #fff;
     margin: auto;
-    margin-top: 300px;
+    margin-top: 250px;
     -webkit-transition: 2s ease-in-out;
     transition: 2s ease-in-out;
 }
