@@ -3,7 +3,6 @@ body {
     color: #ffffff;
     overflow: hidden;
 }
-
 .projects {
     background-color: #ffffff;
     color: #000000;
@@ -15,7 +14,6 @@ body {
     cursor: pointer;
     pointer-events: all;
 }
-
 #particles-js {
     position: absolute;
     width: 100%;
@@ -24,7 +22,6 @@ body {
     background-size: cover;
     background-position: 50% 50%;
 }
-
 .buttons {
     position: absolute;
     top: 50%;
@@ -34,7 +31,6 @@ body {
     flex-direction: column;
     pointer-events: none;
 }
-
 .btn {
     background-color: #ffffff;
     color: #000000;
@@ -47,7 +43,6 @@ body {
     margin-bottom: 10px;
     transition: 0.5s;
 }
-
 .btn:hover {
     background-color: rgba(255, 255, 255, 0);
     color: #ffffff;
@@ -56,22 +51,19 @@ body {
     transition: 0.5s;
     z-index: -1;
 }
-
 html, body{
-  height: 100%;
-  font-weight: 800;
-  margin: 0;
-  padding: 0;
+    height: 100%;
+    font-weight: 800;
+    margin: 0;
+    padding: 0;
 }
-
 .container {
-  display: flex;
-  height: 100%;
-  align-items: center;
-  z-index: 1;
-  position: relative;
+    display: flex;
+    height: 100%;
+    align-items: center;
+    z-index: 1;
+    position: relative;
 }
-
 svg {
     display: block;
     font: 9em sans-serif;
@@ -79,7 +71,6 @@ svg {
     height: 300px;
     margin: 0 auto;
 }
-
 .text-copy {
     fill: none;
     stroke: white;
@@ -88,71 +79,59 @@ svg {
     stroke-dashoffset: 0%;
     animation: stroke-offset 24s infinite linear;
 }
-
 .text-copy:nth-child(1){
-	stroke: #4D163D;
-	animation-delay: -1;
+    stroke: #4D163D;
+    animation-delay: -1;
 }
-
 .text-copy:nth-child(2){
-	stroke: #840037;
-	animation-delay: -2s;
+    stroke: #840037;
+    animation-delay: -2s;
 }
-
 .text-copy:nth-child(3){
-	stroke: #BD0034;
-	animation-delay: -3s;
+    stroke: #BD0034;
+    animation-delay: -3s;
 }
-
 .text-copy:nth-child(4){
-	stroke: #BD0034;
-	animation-delay: -4s;
+    stroke: #BD0034;
+    animation-delay: -4s;
 }
-
 .text-copy:nth-child(5){
-	stroke: #FDB731;
-	animation-delay: -5s;
+    stroke: #FDB731;
+    animation-delay: -5s;
 }
-
 .text-copy:nth-child(6){
     stroke: #FFF;
     animation-delay: -6s;
 }
-
 .text-copy:nth-child(7){
     stroke: #FFF;
     animation-delay: -7s;
 }
-
 .text-copy:nth-child(8){
     stroke: #FFF;
     animation-delay: -8s;
 }
-
 .text-copy:nth-child(9){
     stroke: #FFF;
     animation-delay: -9s;
 }
-
 .text-copy:nth-child(10){
     stroke: #FFF;
     animation-delay: -10s;
 }
-
 .text-copy:nth-child(11){
     stroke: #FFF;
     animation-delay: -11s;
 }
-
 .text-copy:nth-child(12){
     stroke: #FFF;
     animation-delay: -12s;
 }
-
 @keyframes stroke-offset{
-	100% {stroke-dashoffset: -35%;}
+    100% {
+       stroke-dashoffset: -35%;
+   }
 }
-
 .title {
     position: relative;
     top: -5%;

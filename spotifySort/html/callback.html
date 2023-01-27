@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html id="app" lang="en" dir="ltr">
-<head>
-</head>
-<body>
-  <script>
-    if (window.location.hash) {
-      var accessToken = window.location.hash.split('&')[0].split('=')[1];
-      localStorage.setItem('accessToken', accessToken);
-      window.close();
-    } else {
-      window.close();
-    }
-    window.opener.location.reload();
-  </script>
-</body>
+	<head></head>
+	<body>
+		<script>
+			if (window.location.hash) {
+			  var accessToken = window.location.hash.split('&')[0].split('=')[1];
+			  localStorage.setItem('accessToken', accessToken);
+			  window.close();
+			} else {
+			  window.close();
+			}
+			window.opener.location.reload();
+		</script>
+	</body>
 </html>
