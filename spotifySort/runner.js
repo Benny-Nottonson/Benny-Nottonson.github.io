@@ -12,7 +12,7 @@ document.getElementById('sort').addEventListener('click', function() {
     sort();
 });
 
-document.getElementById('home').addEventListener('click', function() {
+document.getElementById('logout').addEventListener('click', function() {
     logout();
 });
 
