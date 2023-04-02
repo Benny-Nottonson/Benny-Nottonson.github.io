@@ -1,30 +1,20 @@
-function handleButtonClick(event) {
-    const buttonId = event.target.id;
-  
-    switch (buttonId) {
-      case 'sort':
-        sort();
-        break;
-      case 'backarrow':
-        cardPrev();
-        break;
-      case 'forwardarrow':
-        cardNext();
-        break;
-      case 'logout':
-        logout();
-        break;
-      default:
-        break;
-    }
-  }
-  
-  document.addEventListener('click', function(event) {
-    if (event.target.matches('button')) {
-      handleButtonClick(event);
-    }
-  });
+document.getElementById('forwardarrow').addEventListener('click', function() {
+    i++;
+    loadCards(playlists, i);
+});
 
+document.getElementById('backarrow').addEventListener('click', function() {
+    i--;
+    loadCards(playlists, i);
+});
+
+document.getElementById('sort').addEventListener('click', function() {
+    sort();
+});
+
+document.getElementById('home').addEventListener('click', function() {
+    logout();
+});
 
 const spot = new SpotifyWebApi();
 spot.setAccessToken(localStorage.getItem('accessToken'));
