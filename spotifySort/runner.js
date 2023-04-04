@@ -22,14 +22,14 @@ spot.setAccessToken(localStorage.getItem('accessToken'));
 const topCard = document.getElementById('topcard');
 const bottomCard = document.getElementById('bottomcard');
 
-const topImageSrc = topCard.getElementsByClassName('card-image')[0].src;
-const bottomImageSrc = bottomCard.getElementsByClassName('card-image')[0].src;
-const topName = topCard.getElementsByClassName('card-title')[0].innerHTML;
-const bottomName = bottomCard.getElementsByClassName('card-title')[0].innerHTML;
-const topSubtitle = topCard.getElementsByClassName('card-subtitle')[0].innerHTML;
-const bottomSubtitle = bottomCard.getElementsByClassName('card-subtitle')[0].innerHTML;
-const topText = topCard.getElementsByClassName('card-text')[0].innerHTML;
-const bottomText = bottomCard.getElementsByClassName('card-text')[0].innerHTML;
+let topImageSrc = topCard.getElementsByClassName('card-image')[0].src;
+let bottomImageSrc = bottomCard.getElementsByClassName('card-image')[0].src;
+let topName = topCard.getElementsByClassName('card-title')[0].innerHTML;
+let bottomName = bottomCard.getElementsByClassName('card-title')[0].innerHTML;
+let topSubtitle = topCard.getElementsByClassName('card-subtitle')[0].innerHTML;
+let bottomSubtitle = bottomCard.getElementsByClassName('card-subtitle')[0].innerHTML;
+let topText = topCard.getElementsByClassName('card-text')[0].innerHTML;
+let bottomText = bottomCard.getElementsByClassName('card-text')[0].innerHTML;
 
 const distanceCache = new Map();
 const bgr2labCache = new Map();
