@@ -22,15 +22,6 @@ spot.setAccessToken(localStorage.getItem('accessToken'));
 const topCard = document.getElementById('topcard');
 const bottomCard = document.getElementById('bottomcard');
 
-let topImageSrc = topCard.getElementsByClassName('card-image')[0].src;
-let bottomImageSrc = bottomCard.getElementsByClassName('card-image')[0].src;
-let topName = topCard.getElementsByClassName('card-title')[0].innerHTML;
-let bottomName = bottomCard.getElementsByClassName('card-title')[0].innerHTML;
-let topSubtitle = topCard.getElementsByClassName('card-subtitle')[0].innerHTML;
-let bottomSubtitle = bottomCard.getElementsByClassName('card-subtitle')[0].innerHTML;
-let topText = topCard.getElementsByClassName('card-text')[0].innerHTML;
-let bottomText = bottomCard.getElementsByClassName('card-text')[0].innerHTML;
-
 const distanceCache = new Map();
 const bgr2labCache = new Map();
 const ccvCache = new Map();
@@ -53,12 +44,12 @@ async function initialize() {
     const playlistOne = data.items[0];
     const playlistTwo = data.items[1];
 
-    topImageSrc = playlistOne.images[0].url;
-    bottomImageSrc = playlistTwo.images[0].url;
-    topName = playlistOne.name;
-    bottomName = playlistTwo.name;
-    topSubtitle = playlistOne.tracks.total + ' songs';
-    bottomSubtitle = playlistTwo.tracks.total + ' songs';
+    topCard.getElementsByClassName('card-image')[0].src = playlistOne.images[0].url;
+    bottomCard.getElementsByClassName('card-image')[0].src = playlistTwo.images[0].url;
+    topCard.getElementsByClassName('card-title')[0].innerHTML = playlistOne.name;
+    bottomCard.getElementsByClassName('card-title')[0].innerHTML = playlistTwo.name;
+    topCard.getElementsByClassName('card-subtitle')[0].innerHTML = playlistOne.tracks.total + ' songs';
+    bottomCard.getElementsByClassName('card-subtitle')[0].innerHTML = playlistTwo.tracks.total + ' songs';
 
     const [topTracks, bottomTracks] = await Promise.all([
         getPlaylistTracksWrapper(spot, playlistOne.id),
@@ -73,8 +64,8 @@ async function initialize() {
         bottomCardText += `${bottomTracks[i].track.name} - ${bottomTracks[i].track.artists[0].name} <br> `;
     }
 
-    topText = topCardText;
-    bottomText = bottomCardText;
+    topCard.getElementsByClassName('card-text')[0].innerHTML = topCardText;
+    bottomCard.getElementsByClassName('card-text')[0].innerHTML = bottomCardText;
 
     return data.items;
 }
@@ -130,12 +121,12 @@ async function loadCards(playlists, index) {
 
     const [topCard, bottomCard] = document.querySelectorAll('.card');
 
-    topImageSrc = value[offset].images[0].url;
-    bottomImageSrc = value[secondOffset].images[0].url;
-    topName = value[offset].name;
-    bottomName = value[secondOffset].name;
-    topSubtitle = value[offset].tracks.total + ' songs';
-    bottomSubtitle = value[secondOffset].tracks.total + ' songs';
+    topCard.querySelector('.card-image').src = value[offset].images[0].url;
+    bottomCard.querySelector('.card-image').src = value[secondOffset].images[0].url;
+    topCard.querySelector('.card-title').innerHTML = value[offset].name;
+    bottomCard.querySelector('.card-title').innerHTML = value[secondOffset].name;
+    topCard.querySelector('.card-subtitle').innerHTML = value[offset].tracks.total + ' songs';
+    bottomCard.querySelector('.card-subtitle').innerHTML = value[secondOffset].tracks.total + ' songs';
 
     let topCardText = '';
     let bottomCardText = '';
@@ -161,8 +152,8 @@ async function loadCards(playlists, index) {
         bottomCardText += bottomTracksSlice[i].track.name + ' - ' + bottomTracksSlice[i].track.artists[0].name + ' <br> ';
     }
 
-    topText = topCardText;
-    bottomText = bottomCardText;
+    topCard.querySelector('.card-text').innerHTML = topCardText;
+    bottomCard.querySelector('.card-text').innerHTML = bottomCardText;
 }
 
 function cardNext() {
@@ -181,10 +172,12 @@ function logout() {
 }
 
 async function sort() {
+    var topCard = document.getElementById('topcard');
+    var topCardTitle = topCard.getElementsByClassName('card-title')[0].innerHTML;
     var playlistID = '';
     for (var i = 0; i < playlistIDs.length; i++) {
         var playlist = playlistIDs[i];
-        if (playlist.title == topCardName) {
+        if (playlist.title == topCardTitle) {
             playlistID = playlist.id;
             break;
         }
