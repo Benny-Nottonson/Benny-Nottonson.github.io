@@ -33,6 +33,7 @@ var i = 0;
 var playlists = initialize();
 
 async function initialize() {
+    localStorage.clear();
     data = await spot.getUserPlaylists();
     for (let i = 0; i < data.items.length; i++) {
         playlistIDs.push({
