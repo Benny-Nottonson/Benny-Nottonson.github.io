@@ -1,68 +1,51 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<script src="/js/particles.js" defer></script>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<script src="/js/app.js" defer></script>
 		<link rel="stylesheet" href="/styles.css">
 		<link rel="favicon" href="/favicon.ico">
-		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
 		<meta http-equiv="Permissions-Policy" content="interest-cohort=()">
+		<script src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
 	</head>
 	<body>
-		<div id="particles-js"></div>
-		<div class="title">
-			<div class="container">
-				<svg viewBox="0 0 1200 300">
-					<symbol id="s-text">
-						<text text-anchor="middle" x="50%" y="80%">Benny Nottonson</text>
-					</symbol>
-					<g class = "g-ants">
-						<use xlink:href="#s-text" class="text-copy"></use>
-						<use xlink:href="#s-text" class="text-copy"></use>
-						<use xlink:href="#s-text" class="text-copy"></use>
-						<use xlink:href="#s-text" class="text-copy"></use>
-						<use xlink:href="#s-text" class="text-copy"></use>
-						<use xlink:href="#s-text" class="text-copy"></use>
-						<use xlink:href="#s-text" class="text-copy"></use>
-						<use xlink:href="#s-text" class="text-copy"></use>
-						<use xlink:href="#s-text" class="text-copy"></use>
-						<use xlink:href="#s-text" class="text-copy"></use>
-						<use xlink:href="#s-text" class="text-copy"></use>
-						<use xlink:href="#s-text" class="text-copy"></use>
-					</g>
-				</svg>
-			</div>
-		</div>
-		<div class="buttons">
-			<figure>
-				<div class="projImage">
-					<a href="spotifySort/index.html" class="figLink">
-						<img src="projImages/spotifySort.png" alt="Spotify Sorter">
-					</a>
+		<section class="hero is-fullheight">
+			<div class="hero-body">
+				<div class="container">
+				<div class="columns">
+					<div class="column is-flex">
+					<div class="column-child terminal shadow">
+						<div class="terminal-bar dark-mode">
+						<div class="icon-btn close"></div>
+						<div class="icon-btn min"></div>
+						<div class="icon-btn max"></div>
+						<div class="terminal-bar-text is-hidden-mobile dark-mode-text">guest@entrance: ~</div>
+						</div>
+						<div class="terminal-window primary-bg" onclick="document.getElementById('dummyKeyboard').focus();">
+						<div class="terminal-output" id="terminalOutput">
+							<div class="terminal-line">
+							<span class="help-msg">Welcome to Benny's portfolio — Type <span class="code">help</span>
+								for a list of supported commands.</span>
+							</div>
+						</div>
+						<div class="terminal-line">
+							<span class="success">➜</span> <span class="directory">~</span> <span class="user-input"
+							id="userInput"></span>
+							<span class="input-blink">|</span>
+							<input type="text" id="dummyKeyboard" class="dummy-keyboard">
+						</div>
+						</div>
+					</div>
+					</div>
 				</div>
-				<figcaption style="padding:1px; padding-left:5px; padding-top:15px;">
-					<a href="spotifySort/index.html" class="figLink">
-						<h3 style="margin:0">Spotify Sorter</h3>
-						<p>Sort spotify playlists by the album cover of each song, uses Self Organization Mapping and PCA.</p>
-					</a>
-				</figcaption>
-			</figure>
-		</div>
-		<div class="line"><h3></h3></div>
-		<script>
-			if (window.innerWidth < 600) {
-				var buttons = document.querySelector(".buttons");
-				buttons.style.flexDirection = "column";
-			}else {
-				var line = document.querySelector(".line");
-				var figures = document.querySelectorAll("figure");
-				var width = 0;
-				for (var i = 0; i < figures.length; i++) {
-					width += figures[i].offsetWidth + 60;
-				}
-				line.querySelector("h3").innerHTML = "Projects";
-				line.style.width = width + "px";
-			}
-		</script>
+				</div>
+			</div>
+			<footer class="footer">
+				<div class="content has-text-centered">
+				</div>
+			</footer>
+		</section>
 	</body>
 </html>
