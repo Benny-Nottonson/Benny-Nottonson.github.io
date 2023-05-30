@@ -43,7 +43,7 @@ const COMMANDS = {
   cls: '',
   date: `The current date is: ${new Date(Date.now()).toLocaleDateString()}`,
   time: `The current time is: ${new Date(Date.now()).toLocaleTimeString()}`,
-  projects: "<a href='https://www.github.com/BennyNottonsonSchool' class='success link'>Github</a><br><a href='/spotifySort/index.html' class='success link'>Spotify Sort</a>"
+  projects: "<a href='https://www.github.com/Benny-Nottonson' class='success link'>Github</a><br><a href='/spotifySort/index.html' class='success link'>Spotify Sort</a>"
 };
 let userInput, terminalOutput;
 
