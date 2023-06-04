@@ -1,4 +1,5 @@
 "use client";
+
 import { Github, Instagram, Mail } from "lucide-react";
 import Link from "next/link";
 import { Navigation } from "../components/nav";
