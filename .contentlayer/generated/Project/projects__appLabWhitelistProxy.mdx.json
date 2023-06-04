@@ -1,0 +1,23 @@
+{
+  "published": true,
+  "title": "appLab Whitelist Proxy",
+  "description": "A proxy server to break AppLab, uses image manipulation and Nodejs",
+  "date": "2023-05-30T00:00:00.000Z",
+  "url": "https://github.com/benny-nottonson/applabWhitelistProxy",
+  "repository": "benny-nottonson/applabWhitelistProxy",
+  "body": {
+    "raw": "\n\n`applabWhitelistProxy` is a program I created in order to break the sandbox built into code.org's AppLab",
+    "code": "var Component=(()=>{var b=Object.create;var s=Object.defineProperty;var l=Object.getOwnPropertyDescriptor;var x=Object.getOwnPropertyNames;var u=Object.getPrototypeOf,h=Object.prototype.hasOwnProperty;var m=(t,e)=>()=>(e||t((e={exports:{}}).exports,e),e.exports),y=(t,e)=>{for(var o in e)s(t,o,{get:e[o],enumerable:!0})},i=(t,e,o,a)=>{if(e&&typeof e==\"object\"||typeof e==\"function\")for(let r of x(e))!h.call(t,r)&&r!==o&&s(t,r,{get:()=>e[r],enumerable:!(a=l(e,r))||a.enumerable});return t};var j=(t,e,o)=>(o=t!=null?b(u(t)):{},i(e||!t||!t.__esModule?s(o,\"default\",{value:t,enumerable:!0}):o,t)),g=t=>i(s({},\"__esModule\",{value:!0}),t);var c=m((A,p)=>{p.exports=_jsx_runtime});var P={};y(P,{default:()=>L,frontmatter:()=>_});var n=j(c()),_={title:\"appLab Whitelist Proxy\",description:\"A proxy server to break AppLab, uses image manipulation and Nodejs\",date:\"2023-05-30\",url:\"https://github.com/benny-nottonson/applabWhitelistProxy\",repository:\"benny-nottonson/applabWhitelistProxy\",published:!0};function d(t){let e=Object.assign({p:\"p\",code:\"code\"},t.components);return(0,n.jsxs)(e.p,{children:[(0,n.jsx)(e.code,{children:\"applabWhitelistProxy\"}),\" is a program I created in order to break the sandbox built into code.org's AppLab\"]})}function f(t={}){let{wrapper:e}=t.components||{};return e?(0,n.jsx)(e,Object.assign({},t,{children:(0,n.jsx)(d,t)})):d(t)}var L=f;return g(P);})();\n;return Component;"
+  },
+  "_id": "projects/appLabWhitelistProxy.mdx",
+  "_raw": {
+    "sourceFilePath": "projects/appLabWhitelistProxy.mdx",
+    "sourceFileName": "appLabWhitelistProxy.mdx",
+    "sourceFileDir": "projects",
+    "contentType": "mdx",
+    "flattenedPath": "projects/appLabWhitelistProxy"
+  },
+  "type": "Project",
+  "path": "/projects/appLabWhitelistProxy",
+  "slug": "appLabWhitelistProxy"
+}

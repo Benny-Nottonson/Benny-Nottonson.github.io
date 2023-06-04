@@ -1,0 +1,23 @@
+{
+  "published": true,
+  "title": "tensorflowImageMorpher",
+  "description": "A tensorflow project to morph from image to image using morph maps",
+  "date": "2022-06-01T00:00:00.000Z",
+  "url": "https://github.com/benny-nottonson/tensorflowImageMorpher",
+  "repository": "benny-nottonson/tensorflowImageMorpher",
+  "body": {
+    "raw": "\n`tensorflowImageMorpher` is a program written in Python 3.11 that uses Tensorflow to morph between a set of images.\nBy training the model to recognize the edges and colors of different images, the model is able to generate a warp map\nthat is then used to shift from image to image in a set ammount of steps.",
+    "code": "var Component=(()=>{var h=Object.create;var s=Object.defineProperty;var f=Object.getOwnPropertyDescriptor;var g=Object.getOwnPropertyNames;var d=Object.getPrototypeOf,l=Object.prototype.hasOwnProperty;var u=(e,t)=>()=>(t||e((t={exports:{}}).exports,t),t.exports),w=(e,t)=>{for(var o in t)s(e,o,{get:t[o],enumerable:!0})},i=(e,t,o,a)=>{if(t&&typeof t==\"object\"||typeof t==\"function\")for(let r of g(t))!l.call(e,r)&&r!==o&&s(e,r,{get:()=>t[r],enumerable:!(a=f(t,r))||a.enumerable});return e};var x=(e,t,o)=>(o=e!=null?h(d(e)):{},i(t||!e||!e.__esModule?s(o,\"default\",{value:e,enumerable:!0}):o,e)),b=e=>i(s({},\"__esModule\",{value:!0}),e);var p=u((C,m)=>{m.exports=_jsx_runtime});var _={};w(_,{default:()=>y,frontmatter:()=>j});var n=x(p()),j={title:\"tensorflowImageMorpher\",description:\"A tensorflow project to morph from image to image using morph maps\",date:\"2022-06-01\",url:\"https://github.com/benny-nottonson/tensorflowImageMorpher\",repository:\"benny-nottonson/tensorflowImageMorpher\",published:!0};function c(e){let t=Object.assign({p:\"p\",code:\"code\"},e.components);return(0,n.jsxs)(t.p,{children:[(0,n.jsx)(t.code,{children:\"tensorflowImageMorpher\"}),` is a program written in Python 3.11 that uses Tensorflow to morph between a set of images.\nBy training the model to recognize the edges and colors of different images, the model is able to generate a warp map\nthat is then used to shift from image to image in a set ammount of steps.`]})}function M(e={}){let{wrapper:t}=e.components||{};return t?(0,n.jsx)(t,Object.assign({},e,{children:(0,n.jsx)(c,e)})):c(e)}var y=M;return b(_);})();\n;return Component;"
+  },
+  "_id": "projects/tensorflowImageMorpher.mdx",
+  "_raw": {
+    "sourceFilePath": "projects/tensorflowImageMorpher.mdx",
+    "sourceFileName": "tensorflowImageMorpher.mdx",
+    "sourceFileDir": "projects",
+    "contentType": "mdx",
+    "flattenedPath": "projects/tensorflowImageMorpher"
+  },
+  "type": "Project",
+  "path": "/projects/tensorflowImageMorpher",
+  "slug": "tensorflowImageMorpher"
+}

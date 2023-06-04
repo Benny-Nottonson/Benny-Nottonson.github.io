@@ -12,8 +12,7 @@ export const metadata: Metadata = {
 	description: "Student at CSULB and aspiring developer",
 	openGraph: {
 		title: "bennynottonson.com",
-		description:
-			"Student at CSULB and aspiring developer",
+		description: "Student at CSULB and aspiring developer",
 		url: "https://bennynottonson.com",
 		siteName: "bennynottonson.com",
 		images: [

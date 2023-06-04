@@ -1,0 +1,23 @@
+{
+  "published": true,
+  "title": "This Site!",
+  "description": "A next.js portfolio site.",
+  "date": "2023-06-01T00:00:00.000Z",
+  "url": "https://bennnyottonson.com",
+  "repository": "benny-nottonson/benny-nottonson.github.io",
+  "body": {
+    "raw": "",
+    "code": "var Component=(()=>{var p=Object.create;var s=Object.defineProperty;var x=Object.getOwnPropertyDescriptor;var b=Object.getOwnPropertyNames;var d=Object.getPrototypeOf,f=Object.prototype.hasOwnProperty;var l=(t,n)=>()=>(n||t((n={exports:{}}).exports,n),n.exports),h=(t,n)=>{for(var e in n)s(t,e,{get:n[e],enumerable:!0})},a=(t,n,e,i)=>{if(n&&typeof n==\"object\"||typeof n==\"function\")for(let r of b(n))!f.call(t,r)&&r!==e&&s(t,r,{get:()=>n[r],enumerable:!(i=x(n,r))||i.enumerable});return t};var j=(t,n,e)=>(e=t!=null?p(d(t)):{},a(n||!t||!t.__esModule?s(e,\"default\",{value:t,enumerable:!0}):e,t)),y=t=>a(s({},\"__esModule\",{value:!0}),t);var c=l((F,u)=>{u.exports=_jsx_runtime});var C={};h(C,{default:()=>M,frontmatter:()=>_});var o=j(c()),_={title:\"This Site!\",description:\"A next.js portfolio site.\",date:\"2023-06-01\",url:\"https://bennnyottonson.com\",repository:\"benny-nottonson/benny-nottonson.github.io\",published:!0};function m(t){return(0,o.jsx)(o.Fragment,{})}function g(t={}){let{wrapper:n}=t.components||{};return n?(0,o.jsx)(n,Object.assign({},t,{children:(0,o.jsx)(m,t)})):m(t)}var M=g;return y(C);})();\n;return Component;"
+  },
+  "_id": "projects/website.mdx",
+  "_raw": {
+    "sourceFilePath": "projects/website.mdx",
+    "sourceFileName": "website.mdx",
+    "sourceFileDir": "projects",
+    "contentType": "mdx",
+    "flattenedPath": "projects/website"
+  },
+  "type": "Project",
+  "path": "/projects/website",
+  "slug": "website"
+}

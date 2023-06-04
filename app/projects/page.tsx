@@ -10,8 +10,12 @@ export default async function ProjectsPage() {
 	const featured = allProjects.find(
 		(project) => project.slug === "spotifySort",
 	)!;
-	const top2 = allProjects.find((project) => project.slug === "tensorflowImageMorpher")!;
-	const top3 = allProjects.find((project) => project.slug === "appLabWhitelistProxy")!;
+	const top2 = allProjects.find(
+		(project) => project.slug === "tensorflowImageMorpher",
+	)!;
+	const top3 = allProjects.find(
+		(project) => project.slug === "appLabWhitelistProxy",
+	)!;
 	const sorted = allProjects
 		.filter((p) => p.published)
 		.filter(
@@ -101,7 +105,7 @@ export default async function ProjectsPage() {
 							.filter((_, i) => i % 3 === 1)
 							.map((project) => (
 								<Card key={project.slug}>
-									<Article project={project}/>
+									<Article project={project} />
 								</Card>
 							))}
 					</div>
