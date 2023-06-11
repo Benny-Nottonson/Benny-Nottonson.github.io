@@ -3,9 +3,28 @@ import remarkGfm from "remark-gfm";
 import rehypePrettyCode from "rehype-pretty-code";
 import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import type { ComputedFields, DocumentTypes } from "contentlayer/source-files";
 
-/** @type {import('contentlayer/source-files').ComputedFields} */
-const computedFields = {
+interface Node {
+	children: { type: string; value: string }[];
+	properties: {
+		className: string[];
+		ariaLabel: string;
+	};
+}
+
+const projectComputedFields: ComputedFields<"Project"> = {
+	path: {
+		type: "string",
+		resolve: (doc) => `/${doc._raw.flattenedPath}`,
+	},
+	slug: {
+		type: "string",
+		resolve: (doc) => doc._raw.flattenedPath.split("/").slice(1).join("/"),
+	},
+};
+
+const pageComputedFields: ComputedFields<"Page"> = {
 	path: {
 		type: "string",
 		resolve: (doc) => `/${doc._raw.flattenedPath}`,
@@ -43,7 +62,7 @@ export const Project = defineDocumentType(() => ({
 			type: "string",
 		},
 	},
-	computedFields,
+	computedFields: projectComputedFields,
 }));
 
 export const Page = defineDocumentType(() => ({
@@ -59,7 +78,7 @@ export const Page = defineDocumentType(() => ({
 			type: "string",
 		},
 	},
-	computedFields,
+	computedFields: pageComputedFields,
 }));
 
 export default makeSource({
@@ -73,17 +92,15 @@ export default makeSource({
 				rehypePrettyCode,
 				{
 					theme: "github-dark",
-					onVisitLine(node) {
-						// Prevent lines from collapsing in `display: grid` mode, and allow empty
-						// lines to be copy/pasted
+					onVisitLine(node: Node) {
 						if (node.children.length === 0) {
 							node.children = [{ type: "text", value: " " }];
 						}
 					},
-					onVisitHighlightedLine(node) {
+					onVisitHighlightedLine(node: Node) {
 						node.properties.className.push("line--highlighted");
 					},
-					onVisitHighlightedWord(node) {
+					onVisitHighlightedWord(node: Node) {
 						node.properties.className = ["word--highlighted"];
 					},
 				},

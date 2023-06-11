@@ -9,13 +9,14 @@ export const revalidate = 60;
 export default async function ProjectsPage() {
 	const featured = allProjects.find(
 		(project) => project.slug === "spotifySort",
-	)!;
+	);
 	const top2 = allProjects.find(
 		(project) => project.slug === "tensorflowImageMorpher",
-	)!;
+	);
 	const top3 = allProjects.find(
 		(project) => project.slug === "appLabWhitelistProxy",
-	)!;
+	);
+	if (!featured || !top2 || !top3) throw new Error("Missing featured project");
 	const sorted = allProjects
 		.filter((p) => p.published)
 		.filter(
