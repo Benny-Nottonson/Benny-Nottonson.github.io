@@ -1,4 +1,4 @@
-lockfileVersion: '6.1'
+lockfileVersion: '6.0'
 
 settings:
   autoInstallPeers: true
@@ -8,6 +8,9 @@ dependencies:
   '@next/mdx':
     specifier: ^13.4.5
     version: 13.4.5
+  '@types/mdx':
+    specifier: ^2.0.5
+    version: 2.0.5
   '@types/node':
     specifier: 20.3.0
     version: 20.3.0
