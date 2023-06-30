@@ -11,7 +11,7 @@ export default async function ProjectsPage() {
 		(project) => project.slug === "spotifySort",
 	);
 	const top2 = allProjects.find(
-		(project) => project.slug === "tensorflowImageMorpher",
+		(project) => project.slug === "spotifySort-TS",
 	);
 	const top3 = allProjects.find(
 		(project) => project.slug === "appLabWhitelistProxy",
