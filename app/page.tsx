@@ -39,10 +39,10 @@ export default function Home() {
 					Hi, my name is Benny, I'm working on{" "}
 					<Link
 						target="_blank"
-						href="https://github.com/Benny-Nottonson/spotifySort-ts"
+						href="https://github.com/Benny-Nottonson/spotifySort-Qwik"
 						className="underline duration-500 hover:text-zinc-300"
 					>
-						spotifySort-TS
+						spotifySort-Qwik
 					</Link>{" "}
 					all day.
 				</h2>
