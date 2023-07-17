@@ -8,10 +8,10 @@ import { Article } from "./article";
 export const revalidate = 60;
 export default async function ProjectsPage() {
 	const featured = allProjects.find(
-		(project) => project.slug === "spotifySort-Qwik",
+		(project) => project.slug === "spotifySort",
 	);
 	const top2 = allProjects.find(
-		(project) => project.slug === "spotifySort",
+		(project) => project.slug === "spotifySort-TS",
 	);
 	const top3 = allProjects.find(
 		(project) => project.slug === "appLabWhitelistProxy",
