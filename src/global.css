@@ -45,3 +45,12 @@ body {
   padding: 0;
   line-height: inherit;
 }
+
+*::-webkit-scrollbar {
+  display: none;
+}
+
+* {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
