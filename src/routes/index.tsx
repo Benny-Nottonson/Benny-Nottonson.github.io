@@ -56,7 +56,7 @@ export const head: DocumentHead = {
   meta: [
     {
       name: 'description',
-      content: 'This is the entry page',
+      content: 'A portfolio website for Benny Nottonson, a student at CSULB for Computer Science',
     },
     {
       property: 'og:title',
@@ -64,7 +64,7 @@ export const head: DocumentHead = {
     },
     {
       property: 'og:description',
-      content: 'This is the entry page',
+      content: 'A portfolio website for Benny Nottonson, a student at CSULB for Computer Science',
     },
   ],
 };
