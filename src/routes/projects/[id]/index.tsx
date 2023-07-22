@@ -18,7 +18,7 @@ export default component$(() => {
   });
 
   return (
-    <div class="w-screen bg-zinc-50 min-h-screen">
+    <div class="w-full bg-zinc-50 min-h-screen">
       <Header project={project} />
       <article class="px-4 py-12 mx-auto prose prose-zinc prose-quoteless">
         <Mdx code={project.content} />
