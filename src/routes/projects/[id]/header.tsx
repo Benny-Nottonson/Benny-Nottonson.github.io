@@ -2,15 +2,13 @@ import { component$, useSignal, useVisibleTask$ } from "@builder.io/qwik";
 
 interface Project {
   slug: string;
-  date: any;
-  published: any;
-  title: any;
-  description: any;
-  url: any;
-  repository: any;
-  body: {
-    code: string;
-  };
+  published: boolean;
+  date: string;
+  title: string;
+  description: string;
+  url: string;
+  repository: string;
+  content: string;
 }
 
 export default component$((p: { project: Project }) => {

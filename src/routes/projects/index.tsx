@@ -1,38 +1,9 @@
-import fs from "fs";
-import path from "path";
-import matter from "gray-matter";
+import { allProjects } from "~/projects";
 import Nav from "~/components/nav/nav";
 import Card from "~/components/card/card";
 import { component$ } from "@builder.io/qwik";
 
 export default component$(() => {
-  const allProjects = fs
-    .readdirSync(path.join(process.cwd(), "src/content/projects"))
-    .map((fileName) => {
-      const slug = fileName.replace(/\.mdx$/, "");
-      const fileContents = fs.readFileSync(
-        path.join(process.cwd(), "src/content/projects", fileName),
-        "utf8",
-      );
-      const { data } = matter(fileContents);
-      const date = data.date ? data.date : null;
-      const published = data.published ?? false;
-      const title = data.title ?? "";
-      const description = data.description ?? "";
-      const url = data.url ?? "";
-      const repository = data.repository ?? "";
-      return {
-        slug,
-        published,
-        date,
-        title,
-        description,
-        url,
-        repository,
-        ...data,
-      };
-    });
-
   const featured = allProjects.find(
     (project) => project.slug === "spotifySort",
   );
@@ -51,8 +22,8 @@ export default component$(() => {
     )
     .sort(
       (a, b) =>
-        new Date(b.date ?? Number.POSITIVE_INFINITY).getTime() -
-        new Date(a.date ?? Number.POSITIVE_INFINITY).getTime(),
+        new Date(b.date).getTime() -
+        new Date(a.date).getTime(),
     );
 
   return (
