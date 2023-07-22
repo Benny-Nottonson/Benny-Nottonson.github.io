@@ -109,6 +109,7 @@ export default component$((p: { project: Project }) => {
         <div class="container flex flex-row-reverse items-center justify-between p-6 mx-auto">
           <div class="flex justify-between gap-8">
             <a
+              aria-name="Instagram"
               target="_blank"
               href="https://insagram.com/bennynottonson"
               class={`duration-200 hover:font-medium ${
@@ -120,6 +121,7 @@ export default component$((p: { project: Project }) => {
               <Instagram class="w-6 h-6 " />
             </a>
             <a
+              aria-name="Github"
               target="_blank"
               href="https://github.com/benny-nottonson"
               class={`duration-200 hover:font-medium ${
@@ -133,6 +135,7 @@ export default component$((p: { project: Project }) => {
           </div>
 
           <a
+            aria-name="Back"
             href="/projects"
             class={`duration-200 hover:font-medium ${
               isIntersecting.value
