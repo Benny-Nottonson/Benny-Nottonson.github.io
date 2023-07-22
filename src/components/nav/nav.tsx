@@ -37,6 +37,12 @@ export default component$(() => {
             >
               Contact
             </a>
+            <a
+              href="/resume"
+              class="duration-200 text-zinc-400 hover:text-zinc-100"
+            >
+              Resume
+            </a>
           </div>
 
           <a

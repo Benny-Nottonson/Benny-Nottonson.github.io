@@ -5,6 +5,7 @@ import Particles from "~/components/particles/particles";
 const navigation = [
   { name: "Projects", href: "/projects" },
   { name: "Contact", href: "/contact" },
+  { name: "Resume", href: "/resume" },
 ];
 
 export default component$(() => {
