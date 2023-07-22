@@ -6,9 +6,8 @@ import { allProjects } from "~/projects";
 import type { DocumentHead } from "@builder.io/qwik-city";
 
 export default component$(() => {
-  const location = useLocation();
-  const project = allProjects.find((p) => p.slug === location.params.id);
-  if (!project) throw new Error("Missing project");
+  const loc = useLocation().params.id as keyof typeof allProjects;
+  const project = allProjects[loc];
 
   useVisibleTask$(() => {
     document.title = `${project.title} | Benny Nottonson`;

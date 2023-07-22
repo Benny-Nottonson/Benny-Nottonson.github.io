@@ -31,7 +31,12 @@ const allProjects = readdirSync(
   };
 });
 
+const projects = allProjects.reduce((acc, project) => {
+  acc[project.slug] = project;
+  return acc;
+}, {});
+
 writeFileSync(
   join(process.cwd(), "src/projects.ts"),
-  `export const allProjects = ${JSON.stringify(allProjects)}`,
+  `export const allProjects = ${JSON.stringify(projects)}`,
 );

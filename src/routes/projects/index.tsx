@@ -5,23 +5,18 @@ import { component$ } from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";
 
 export default component$(() => {
-  const featured = allProjects.find(
-    (project) => project.slug === "spotifySort",
-  );
-  const top2 = allProjects.find((project) => project.slug === "spotifySort-TS");
-  const top3 = allProjects.find(
-    (project) => project.slug === "appLabWhitelistProxy",
-  );
-  if (!featured || !top2 || !top3) throw new Error("Missing featured project");
-  const sorted = allProjects
-    .filter((p) => p.published)
-    .filter(
-      (project) =>
-        project.slug !== featured.slug &&
-        project.slug !== top2.slug &&
-        project.slug !== top3.slug,
-    )
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  const featured = allProjects["spotifySort"];
+  const top2 = allProjects["spotifySort-TS"];
+  const top3 = allProjects["appLabWhitelistProxy"]
+  const sorted = Object.values(allProjects)
+    .filter((project) => project.slug !== featured.slug)
+    .filter((project) => project.slug !== top2.slug)
+    .filter((project) => project.slug !== top3.slug)
+    .sort((a, b) => {
+      if (!a.date) return 1;
+      if (!b.date) return -1;
+      return new Date(b.date).getTime() - new Date(a.date).getTime();
+    });
 
   return (
     <div class="h-screen w-full overflow-x-hidden pb-8">

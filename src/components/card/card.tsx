@@ -32,7 +32,7 @@ export default component$(() => {
   return (
     <div
       ref={container}
-      class="overflow-hidden relative border rounded-xl md:gap-8 hover:border-zinc-400/50 border-zinc-600"
+      class="overflow-hidden relative border rounded-xl md:gap-8 hover:border-zinc-400/50 border-zinc-600 min-h-full"
     >
       <div>
         <div class="absolute inset-0 z-0 bg-gradient-to-br via-zinc-700/10 from-slate-500/10 to-slate-500/10" />
