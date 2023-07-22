@@ -6,7 +6,7 @@ import type { DocumentHead } from "@builder.io/qwik-city";
 
 export default component$(() => {
   const featured = allProjects["spotifySort"];
-  const top2 = allProjects["spotifySort-TS"];
+  const top2 = allProjects["spotifySort-Qwik"];
   const top3 = allProjects["appLabWhitelistProxy"];
   const sorted = Object.values(allProjects)
     .filter((project) => project.slug !== featured.slug)
