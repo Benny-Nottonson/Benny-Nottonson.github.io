@@ -2,6 +2,7 @@ import { allProjects } from "~/projects";
 import Nav from "~/components/nav/nav";
 import Card from "~/components/card/card";
 import { component$ } from "@builder.io/qwik";
+import type { DocumentHead } from "@builder.io/qwik-city";
 
 export default component$(() => {
   const featured = allProjects.find(
@@ -213,3 +214,21 @@ export default component$(() => {
     </div>
   );
 });
+
+export const head: DocumentHead = {
+  title: 'Projects',
+  meta: [
+    {
+      name: 'description',
+      content: 'This is the projects page',
+    },
+    {
+      property: 'og:title',
+      content: 'Projects',
+    },
+    {
+      property: 'og:description',
+      content: 'This is the projects page',
+    },
+  ],
+};

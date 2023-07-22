@@ -1,6 +1,7 @@
 import { component$ } from "@builder.io/qwik";
 import Navigation from "~/components/nav/nav";
 import Card from "~/components/card/card";
+import type { DocumentHead } from "@builder.io/qwik-city";
 
 const socials = [
   {
@@ -110,3 +111,21 @@ export default component$(() => {
     </div>
   );
 });
+
+export const head: DocumentHead = {
+  title: 'Contact',
+  meta: [
+    {
+      name: 'description',
+      content: 'This is the contact page',
+    },
+    {
+      property: 'og:title',
+      content: 'Contact',
+    },
+    {
+      property: 'og:description',
+      content: 'This is the contact page',
+    },
+  ],
+};

@@ -1,4 +1,5 @@
 import { component$ } from "@builder.io/qwik";
+import type { DocumentHead } from "@builder.io/qwik-city";
 import Particles from "~/components/particles/particles";
 
 const navigation = [
@@ -49,3 +50,21 @@ export default component$(() => {
     </div>
   );
 });
+
+export const head: DocumentHead = {
+  title: 'Benny Nottonson',
+  meta: [
+    {
+      name: 'description',
+      content: 'This is the entry page',
+    },
+    {
+      property: 'og:title',
+      content: 'Benny Nottonson',
+    },
+    {
+      property: 'og:description',
+      content: 'This is the entry page',
+    },
+  ],
+};
