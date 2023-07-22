@@ -34,9 +34,9 @@ export default component$(() => {
         Benny Nottonson
       </h1>
       <div class="hidden w-screen h-px animate-glow md:block animate-fade-right bg-gradient-to-r from-zinc-300/0 via-zinc-300/50 to-zinc-300/0" />
-      <div class="my-16 text-center animate-fade-in">
+      <div class="my-16 text-center animate-fade-in mx-16">
         <h2 class="text-sm text-zinc-500 ">
-          Hi, my name is Benny, I'm working on{" "}
+          Hi, my name is Benny, I'm working on{<br />}
           <a
             target="_blank"
             href="https://github.com/Benny-Nottonson/spotifySort-Qwik"

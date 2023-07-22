@@ -45,3 +45,8 @@ body {
   padding: 0;
   line-height: inherit;
 }
+
+body, html {
+  overflow: hidden;
+  position: fixed;
+}
