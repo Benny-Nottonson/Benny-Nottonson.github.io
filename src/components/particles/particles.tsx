@@ -100,7 +100,7 @@ export default component$(
       };
 
       const clearContext = () => {
-        context.clearRect(0, 0, width, height);
+        context.clearRect(0, 0, canvas.width, canvas.height);
       };
 
       const drawParticles = () => {
