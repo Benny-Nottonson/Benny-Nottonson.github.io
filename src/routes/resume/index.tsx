@@ -71,6 +71,27 @@ export default component$(() => {
             </p>
           </li>
         </ul>
+        <div class="w-full h-px bg-zinc-800" />
+        <ul>
+          <li class="mt-4 text-zinc-400">
+            <p>
+              <span class="font-bold">Languages - </span>
+              <span>Python, Typescript, Javascript</span>
+            </p>
+          </li>
+          <li class="mt-4 text-zinc-400">
+            <p>
+              <span class="font-bold">Frameworks - </span>
+              <span>NextJS, Qwik, React, Vite</span>
+            </p>
+          </li>
+          <li class="mt-4 text-zinc-400">
+            <p>
+              <span class="font-bold">Concepts - </span>
+              <span>Machine Learning, Linear Algebra, Statistics, Image Processing</span>
+            </p>
+          </li>
+        </ul>
       </div>
     </div>
   );
