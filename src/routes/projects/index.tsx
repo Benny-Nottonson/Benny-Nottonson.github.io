@@ -21,11 +21,7 @@ export default component$(() => {
         project.slug !== top2.slug &&
         project.slug !== top3.slug,
     )
-    .sort(
-      (a, b) =>
-        new Date(b.date).getTime() -
-        new Date(a.date).getTime(),
-    );
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
   return (
     <div class="h-screen w-screen overflow-x-hidden pb-8">
@@ -216,19 +212,19 @@ export default component$(() => {
 });
 
 export const head: DocumentHead = {
-  title: 'Projects',
+  title: "Projects",
   meta: [
     {
-      name: 'description',
-      content: 'This is the projects page',
+      name: "description",
+      content: "This is the projects page",
     },
     {
-      property: 'og:title',
-      content: 'Projects',
+      property: "og:title",
+      content: "Projects",
     },
     {
-      property: 'og:description',
-      content: 'This is the projects page',
+      property: "og:description",
+      content: "This is the projects page",
     },
   ],
 };

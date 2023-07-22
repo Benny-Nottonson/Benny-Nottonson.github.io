@@ -113,19 +113,19 @@ export default component$(() => {
 });
 
 export const head: DocumentHead = {
-  title: 'Contact',
+  title: "Contact",
   meta: [
     {
-      name: 'description',
-      content: 'This is the contact page',
+      name: "description",
+      content: "This is the contact page",
     },
     {
-      property: 'og:title',
-      content: 'Contact',
+      property: "og:title",
+      content: "Contact",
     },
     {
-      property: 'og:description',
-      content: 'This is the contact page',
+      property: "og:description",
+      content: "This is the contact page",
     },
   ],
 };

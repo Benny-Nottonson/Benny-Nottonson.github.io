@@ -39,7 +39,11 @@ export default component$(() => {
             </a>
           </div>
 
-          <a href="/" class="duration-200 text-zinc-300 hover:text-zinc-100" aria-label="return">
+          <a
+            href="/"
+            class="duration-200 text-zinc-300 hover:text-zinc-100"
+            aria-label="return"
+          >
             <div class="w-6 h-6 ">
               <svg
                 xmlns="http://www.w3.org/2000/svg"

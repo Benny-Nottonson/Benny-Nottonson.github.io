@@ -46,7 +46,8 @@ body {
   line-height: inherit;
 }
 
-body, html {
+body,
+html {
   overflow: hidden;
   position: fixed;
 }

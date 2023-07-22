@@ -26,13 +26,13 @@ export default component$(() => {
     </div>
   );
 });
- 
+
 export const head: DocumentHead = {
-    title: `Project`,
-    meta: [
-      {
-        name: 'description',
-        content: `This is the project page`,
-      },
-    ],
+  title: `Project`,
+  meta: [
+    {
+      name: "description",
+      content: `This is the project page`,
+    },
+  ],
 };

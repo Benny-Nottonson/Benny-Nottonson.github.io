@@ -52,19 +52,21 @@ export default component$(() => {
 });
 
 export const head: DocumentHead = {
-  title: 'Benny Nottonson',
+  title: "Benny Nottonson",
   meta: [
     {
-      name: 'description',
-      content: 'A portfolio website for Benny Nottonson, a student at CSULB for Computer Science',
+      name: "description",
+      content:
+        "A portfolio website for Benny Nottonson, a student at CSULB for Computer Science",
     },
     {
-      property: 'og:title',
-      content: 'Benny Nottonson',
+      property: "og:title",
+      content: "Benny Nottonson",
     },
     {
-      property: 'og:description',
-      content: 'A portfolio website for Benny Nottonson, a student at CSULB for Computer Science',
+      property: "og:description",
+      content:
+        "A portfolio website for Benny Nottonson, a student at CSULB for Computer Science",
     },
   ],
 };
