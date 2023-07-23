@@ -88,7 +88,9 @@ export default component$(() => {
           <li class="mt-4 text-zinc-400">
             <p>
               <span class="font-bold">Concepts - </span>
-              <span>Machine Learning, Linear Algebra, Statistics, Image Processing</span>
+              <span>
+                Machine Learning, Linear Algebra, Statistics, Image Processing
+              </span>
             </p>
           </li>
         </ul>

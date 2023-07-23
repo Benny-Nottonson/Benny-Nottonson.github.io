@@ -5,7 +5,7 @@ export default component$(() => {
   const gradientRef = useSignal<HTMLDivElement>();
 
   useVisibleTask$(() => {
-    document.addEventListener("mousemove", (e) => {
+    document.addEventListener("mousemove", (e: MouseEvent) => {
       if (container.value && gradientRef.value) {
         const rect = container.value.getBoundingClientRect();
         const x = e.clientX - rect.left;
@@ -16,11 +16,9 @@ export default component$(() => {
           x < container.value.clientWidth &&
           y < container.value.clientHeight
         ) {
-          const xCalc = x;
-          const yCalc = y;
           gradientRef.value.style.setProperty(
             "background",
-            `radial-gradient(circle at ${xCalc}px ${yCalc}px, rgba(255, 255, 255, 0.075) 0, rgba(122, 122, 122, 0.05) 5rem, rgba(0, 0, 0, 0.1) 10rem)`,
+            `radial-gradient(circle at ${x}px ${y}px, rgba(255, 255, 255, 0.075) 0, rgba(122, 122, 122, 0.05) 5rem, rgba(0, 0, 0, 0.1) 10rem)`,
           );
         } else {
           gradientRef.value.style.setProperty("background", "transparent");
