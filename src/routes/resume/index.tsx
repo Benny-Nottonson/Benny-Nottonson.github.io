@@ -1,11 +1,11 @@
 import { component$ } from "@builder.io/qwik";
-import Navigation from "~/components/nav/nav";
+import Nav from "~/components/nav/nav";
 import type { DocumentHead } from "@builder.io/qwik-city";
 
 export default component$(() => {
   return (
     <div class="h-screen w-full overflow-x-hidden pb-8 bg-gradient-to-tl from-zinc-900/0 via-zinc-900 to-zinc-900/0">
-      <Navigation />
+      <Nav />
       <div class="px-6 pt-16 mx-auto space-y-8 max-w-7xl lg:px-8 md:space-y-16 md:pt-24 lg:pt-32">
         <div class="max-w-2xl mx-auto lg:mx-0">
           <h2 class="text-4xl font-bold tracking-tight text-zinc-100 sm:text-5xl">

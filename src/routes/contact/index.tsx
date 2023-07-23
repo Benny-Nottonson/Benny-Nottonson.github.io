@@ -1,5 +1,5 @@
 import { component$ } from "@builder.io/qwik";
-import Navigation from "~/components/nav/nav";
+import Nav from "~/components/nav/nav";
 import Card from "~/components/card/card";
 import type { DocumentHead } from "@builder.io/qwik-city";
 
@@ -78,7 +78,7 @@ const socials = [
 export default component$(() => {
   return (
     <div class="w-full bg-gradient-to-tl from-zinc-900/0 via-zinc-900 to-zinc-900/0 pb-8">
-      <Navigation />
+      <Nav />
       <div class="container flex items-center justify-center min-h-screen px-4 mx-auto">
         <div class="grid w-full grid-cols-1 gap-8 mx-auto mt-32 sm:mt-0 sm:grid-cols-3 lg:gap-16">
           {socials.map((s) => (
