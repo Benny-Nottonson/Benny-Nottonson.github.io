@@ -2,7 +2,7 @@ import { component$, useVisibleTask$ } from "@builder.io/qwik";
 import { useLocation } from "@builder.io/qwik-city";
 import Header from "./header";
 import Mdx from "./mdx";
-import { allProjects } from "~/projects";
+import { allProjects } from "../../../projects";
 import type { DocumentHead } from "@builder.io/qwik-city";
 
 export default component$(() => {

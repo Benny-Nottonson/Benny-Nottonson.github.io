@@ -1,6 +1,6 @@
 import { component$ } from "@builder.io/qwik";
-import Nav from "~/components/nav/nav";
-import Card from "~/components/card/card";
+import Nav from "../../components/nav/nav";
+import Card from "../../components/card/card";
 import type { DocumentHead } from "@builder.io/qwik-city";
 
 const socials = [

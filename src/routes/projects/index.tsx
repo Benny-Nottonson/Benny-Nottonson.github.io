@@ -1,6 +1,6 @@
-import { allProjects } from "~/projects";
-import Nav from "~/components/nav/nav";
-import Card from "~/components/card/card";
+import { allProjects } from "../../projects";
+import Nav from "../../components/nav/nav";
+import Card from "../../components/card/card";
 import { component$ } from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";
 
