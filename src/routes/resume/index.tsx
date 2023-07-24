@@ -1,5 +1,6 @@
 import { component$ } from "@builder.io/qwik";
 import Nav from "../../components/nav/nav";
+import ResumeItem from "../../components/resumeItem/resumeItem";
 import type { DocumentHead } from "@builder.io/qwik-city";
 
 export default component$(() => {
@@ -25,74 +26,15 @@ export default component$(() => {
         </div>
         <div class="w-full h-px bg-zinc-800" />
         <ul>
-          <li class="mt-4 text-zinc-400">
-            <p>
-              <span class="font-bold">Student</span> at{" "}
-              <a
-                target="_blank"
-                href="https://www.csulb.edu/"
-                class="underline duration-500 hover:text-zinc-300"
-                aria-name="CSULB"
-              >
-                CSULB
-              </a>{" "}
-              from
-              <span class="font-bold"> 2023 - Present</span>
-            </p>
-          </li>
-          <li class="mt-4 text-zinc-400">
-            <p>
-              <span class="font-bold">Dance Instructor</span> at{" "}
-              <a
-                target="_blank"
-                href="https://csdalb.com/"
-                class="underline duration-500 hover:text-zinc-300"
-                aria-name="CSDA"
-              >
-                CSDA
-              </a>{" "}
-              from
-              <span class="font-bold"> 2023 - Present</span>
-            </p>
-          </li>
-          <li class="mt-4 text-zinc-400">
-            <p>
-              <span class="font-bold">Web Developer</span> at{" "}
-              <a
-                target="_blank"
-                href="https://valtertennis.com/"
-                class="underline duration-500 hover:text-zinc-300"
-                aria-name="Valter Tennis"
-              >
-                Valter Tennis
-              </a>{" "}
-              from
-              <span class="font-bold"> 2023 - Present</span>
-            </p>
-          </li>
+          <ResumeItem type="work" role="Student" location="CSULB" link="https://www.csulb.edu/" start="2023" end="Present"/>
+          <ResumeItem type="work" role="Dance Instructor" location="CSDA" link="https://csdalb.com/" start="2023" end="Present"/>
+          <ResumeItem type="work" role="Web Developer" location="Valter Tennis" link="https://valtertennis.com/" start="2023" end="Present"/>
         </ul>
         <div class="w-full h-px bg-zinc-800" />
         <ul>
-          <li class="mt-4 text-zinc-400">
-            <p>
-              <span class="font-bold">Languages - </span>
-              <span>Python, Typescript, Javascript</span>
-            </p>
-          </li>
-          <li class="mt-4 text-zinc-400">
-            <p>
-              <span class="font-bold">Frameworks - </span>
-              <span>NextJS, Qwik, React, Vite</span>
-            </p>
-          </li>
-          <li class="mt-4 text-zinc-400">
-            <p>
-              <span class="font-bold">Concepts - </span>
-              <span>
-                Machine Learning, Linear Algebra, Statistics, Image Processing
-              </span>
-            </p>
-          </li>
+          <ResumeItem type="experience" title="Languages" description="Python, Typescript, Javascript"/>
+          <ResumeItem type="experience" title="Frameworks" description="NextJS, Qwik, React, Vite"/>
+          <ResumeItem type="experience" title="Concepts" description="Machine Learning, Linear Algebra, Statistics, Image Processing"/>
         </ul>
       </div>
     </div>
