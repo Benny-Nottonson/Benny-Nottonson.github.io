@@ -26,15 +26,48 @@ export default component$(() => {
         </div>
         <div class="w-full h-px bg-zinc-800" />
         <ul>
-          <ResumeItem type="work" role="Student" location="CSULB" link="https://www.csulb.edu/" start="2023" end="Present"/>
-          <ResumeItem type="work" role="Dance Instructor" location="CSDA" link="https://csdalb.com/" start="2023" end="Present"/>
-          <ResumeItem type="work" role="Web Developer" location="Valter Tennis" link="https://valtertennis.com/" start="2023" end="Present"/>
+          <ResumeItem
+            type="work"
+            role="Student"
+            location="CSULB"
+            link="https://www.csulb.edu/"
+            start="2023"
+            end="Present"
+          />
+          <ResumeItem
+            type="work"
+            role="Dance Instructor"
+            location="CSDA"
+            link="https://csdalb.com/"
+            start="2023"
+            end="Present"
+          />
+          <ResumeItem
+            type="work"
+            role="Web Developer"
+            location="Valter Tennis"
+            link="https://valtertennis.com/"
+            start="2023"
+            end="Present"
+          />
         </ul>
         <div class="w-full h-px bg-zinc-800" />
         <ul>
-          <ResumeItem type="experience" title="Languages" description="Python, Typescript, Javascript"/>
-          <ResumeItem type="experience" title="Frameworks" description="NextJS, Qwik, React, Vite"/>
-          <ResumeItem type="experience" title="Concepts" description="Machine Learning, Linear Algebra, Statistics, Image Processing"/>
+          <ResumeItem
+            type="experience"
+            title="Languages"
+            description="Python, Typescript, Javascript"
+          />
+          <ResumeItem
+            type="experience"
+            title="Frameworks"
+            description="NextJS, Qwik, React, Vite"
+          />
+          <ResumeItem
+            type="experience"
+            title="Concepts"
+            description="Machine Learning, Linear Algebra, Statistics, Image Processing"
+          />
         </ul>
       </div>
     </div>
