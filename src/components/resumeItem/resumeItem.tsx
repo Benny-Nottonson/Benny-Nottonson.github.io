@@ -1,28 +1,17 @@
 import { component$ } from "@builder.io/qwik";
 
-interface ResumeWorkProps {
+interface resumeProp {} & ({
   type: "work";
   role: string;
   location: string;
   link: string;
   start: string;
   end: string;
-  title?: never;
-  description?: never;
-}
-
-interface ResumeExperienceProps {
+} | {
   type: "experience";
-  role?: never;
-  location?: never;
-  link?: never;
-  start?: never;
-  end?: never;
   title: string;
   description: string;
-}
-
-type ResumeItemProps = ResumeWorkProps | ResumeExperienceProps;
+})
 
 export default component$(
   ({
@@ -34,7 +23,7 @@ export default component$(
     end,
     title,
     description,
-  }: ResumeItemProps) => {
+  }: resumeProp) => {
     if (type === "work") {
       return (
         <li class="mt-4 text-zinc-400">
