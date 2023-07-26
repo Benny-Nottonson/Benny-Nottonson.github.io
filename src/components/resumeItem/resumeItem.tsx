@@ -1,59 +1,51 @@
 import { component$ } from "@builder.io/qwik";
 
-interface resumeProp {} & ({
-  type: "work";
-  role: string;
-  location: string;
-  link: string;
-  start: string;
-  end: string;
-} | {
-  type: "experience";
-  title: string;
-  description: string;
-})
-
-export default component$(
-  ({
-    type,
-    role,
-    location,
-    link,
-    start,
-    end,
-    title,
-    description,
-  }: resumeProp) => {
-    if (type === "work") {
-      return (
-        <li class="mt-4 text-zinc-400">
-          <p>
-            <span class="font-bold">{role}</span> at{" "}
-            <a
-              target="_blank"
-              href={link}
-              class="underline duration-500 hover:text-zinc-300"
-              aria-name="CSULB"
-            >
-              {location}
-            </a>{" "}
-            from
-            <span class="font-bold">
-              {" "}
-              {start} - {end}
-            </span>
-          </p>
-        </li>
-      );
-    } else {
-      return (
-        <li class="mt-4 text-zinc-400">
-          <p>
-            <span class="font-bold">{title} - </span>
-            <span>{description}</span>
-          </p>
-        </li>
-      );
+type resumeProp = {} & (
+  | {
+      type: "work";
+      role: string;
+      location: string;
+      link: string;
+      start: string;
+      end: string;
     }
-  },
+  | {
+      type: "experience";
+      title: string;
+      description: string;
+    }
 );
+
+export default component$((props: resumeProp) => {
+  if (props.type === "work") {
+    return (
+      <li class="mt-4 text-zinc-400">
+        <p>
+          <span class="font-bold">{props.role}</span> at{" "}
+          <a
+            target="_blank"
+            href={props.link}
+            class="underline duration-500 hover:text-zinc-300"
+            aria-name="CSULB"
+          >
+            {props.location}
+          </a>{" "}
+          from
+          <span class="font-bold">
+            {" "}
+            {props.start} - {props.end}
+          </span>
+        </p>
+      </li>
+    );
+  } else {
+    return (
+      <li class="mt-4 text-zinc-400">
+        <p>
+          <span class="font-bold">{props.title} - </span>
+          <span>{props.description}</span>
+        </p>
+      </li>
+    );
+  }
+});
