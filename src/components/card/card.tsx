@@ -18,7 +18,10 @@ export default component$(() => {
         ) {
           gradientRef.value.style.setProperty(
             "background",
-            `radial-gradient(circle at ${x}px ${y}px, rgba(255, 255, 255, 0.075) 0, rgba(122, 122, 122, 0.05) 5rem, rgba(0, 0, 0, 0.1) 10rem)`,
+            `radial-gradient(circle at ${x}px ${y}px, 
+              rgba(255, 255, 255, 0.1) 0, 
+              rgba(0, 0, 0, 0.1) 8rem
+            `,
           );
         } else {
           gradientRef.value.style.setProperty("background", "transparent");
