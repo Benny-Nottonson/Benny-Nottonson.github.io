@@ -26,7 +26,7 @@ export default component$((props: resumeProp) => {
               target="_blank"
               href={props.link}
               class="underline duration-500 hover:text-zinc-300"
-              aria-name="CSULB"
+              aria-label="link to company website"
             >
               {props.location}
             </a>{" "}

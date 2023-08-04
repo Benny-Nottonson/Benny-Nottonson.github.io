@@ -18,9 +18,9 @@ export default component$(() => {
               target="_blank"
               href="../Tech.pdf"
               class="underline duration-500 hover:text-zinc-300"
-              aria-name="Tech Resume"
+              aria-label="link to resume"
             >
-              here
+              as a pdf
             </a>{" "}
           </p>
         </div>
