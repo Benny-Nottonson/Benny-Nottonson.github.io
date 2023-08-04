@@ -45,7 +45,7 @@ export default component$(() => {
           >
             spotifySort-Qwik
           </a>{" "}
-          all day.
+          currently.
         </h2>
       </div>
     </div>
