@@ -1,6 +1,6 @@
 import { component$ } from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";
-import Particles from "~/components/particles/particles";
+import Particles from "../components/particles/particles";
 
 const navigation = [
   { name: "Projects", href: "/projects" },
@@ -44,7 +44,7 @@ export default component$(() => {
           >
             valterTennis
           </a>{" "}
-          all day.
+          currently.
         </h2>
       </div>
     </div>
