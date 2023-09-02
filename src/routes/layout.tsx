@@ -1,5 +1,7 @@
 import { component$, Slot } from "@builder.io/qwik";
 import { routeLoader$, type RequestHandler } from "@builder.io/qwik-city";
+import { readdirSync, readFileSync } from "node:fs";
+import { join } from "node:path";
 
 export interface Project {
   slug: string;
@@ -15,8 +17,6 @@ export interface Project {
 export const useProjects = routeLoader$<{
   [key: string]: Project;
 }>(async () => {
-  const { readdirSync, readFileSync } = await import("fs");
-  const { join } = await import("path");
   const { default: matter } = await import("gray-matter");
 
   const allProjects = readdirSync(
