@@ -1,10 +1,66 @@
-import { allProjects } from "../../projects";
 import Nav from "../../components/nav/nav";
 import { component$ } from "@builder.io/qwik";
-import type { DocumentHead } from "@builder.io/qwik-city";
+import { routeLoader$, type DocumentHead } from "@builder.io/qwik-city";
 import ProjectCard from "~/components/projectCard/projectCard";
 
+interface Project {
+  slug: string;
+  published: boolean;
+  date: string;
+  title: string;
+  description: string;
+  url: string;
+  repository: string;
+  content: string;
+}
+
+export const useProjects = routeLoader$<{
+  [key: string]: Project;
+}>(async () => {
+  const { readdirSync, readFileSync } = await import("fs");
+  const { join } = await import("path");
+  const { default: matter } = await import("gray-matter");
+
+  const allProjects = readdirSync(
+    join(process.cwd(), "src/content/projects"),
+  ).map((fileName) => {
+    const slug = fileName.replace(/\.mdx$/, "");
+    const fileContents = readFileSync(
+      join(process.cwd(), "src/content/projects", fileName),
+      "utf8",
+    );
+    const { data } = matter(fileContents);
+    const date = data.date ? data.date : null;
+    const published = data.published ?? false;
+    const title = data.title ?? "";
+    const description = data.description ?? "";
+    const url = data.url ?? "";
+    const repository = data.repository ?? "";
+    const content = fileContents.split("---").slice(2).join("---");
+    return {
+      slug,
+      published,
+      date,
+      title,
+      description,
+      url,
+      repository,
+      content,
+      ...data,
+    };
+  });
+
+  const projects = allProjects.reduce((acc: any, project) => {
+    acc[project.slug] = project;
+    return acc;
+  }, {});
+
+  return projects;
+});
+
 export default component$(() => {
+  const allProjects = useProjects().value;
+
   const featured = allProjects["spotifySort"];
   const top2 = allProjects["spotifySort-Qwik"];
   const top3 = allProjects["appLabWhitelistProxy"];

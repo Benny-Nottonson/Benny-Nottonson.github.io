@@ -2,10 +2,11 @@ import { component$, useVisibleTask$ } from "@builder.io/qwik";
 import { useLocation } from "@builder.io/qwik-city";
 import Header from "./header";
 import Mdx from "./mdx";
-import { allProjects } from "../../../projects";
 import type { DocumentHead } from "@builder.io/qwik-city";
+import { useProjects } from "..";
 
 export default component$(() => {
+  const allProjects = useProjects().value;
   const loc = useLocation().params.id as keyof typeof allProjects;
   const project = allProjects[loc];
 

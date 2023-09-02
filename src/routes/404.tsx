@@ -21,8 +21,7 @@ export const head: DocumentHead = {
   meta: [
     {
       name: "description",
-      content:
-        "This page was not found",
+      content: "This page was not found",
     },
     {
       property: "og:title",
@@ -30,8 +29,7 @@ export const head: DocumentHead = {
     },
     {
       property: "og:description",
-      content:
-        "This page was not found",
+      content: "This page was not found",
     },
   ],
 };
