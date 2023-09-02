@@ -39,11 +39,10 @@ export default component$(() => {
         <h2 class="text-sm text-zinc-500 ">
           Hi, my name is Benny, I'm working on{<br />}
           <a
-            target="_blank"
-            href="https://github.com/Benny-Nottonson/spotifySort-Qwik"
+            href="./projects/valterTennis"
             class="underline duration-500 hover:text-zinc-300"
           >
-            spotifySort-Qwik
+            valterTennis
           </a>{" "}
           currently.
         </h2>

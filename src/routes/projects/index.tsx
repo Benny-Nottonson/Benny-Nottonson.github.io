@@ -63,7 +63,7 @@ export default component$(() => {
 
   const featured = allProjects["spotifySort"];
   const top2 = allProjects["spotifySort-Qwik"];
-  const top3 = allProjects["appLabWhitelistProxy"];
+  const top3 = allProjects["valterTennis"];
   const sorted = Object.values(allProjects)
     .filter((project) => project.slug !== featured.slug)
     .filter((project) => project.slug !== top2.slug)
