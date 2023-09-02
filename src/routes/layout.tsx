@@ -1,7 +1,5 @@
 import { component$, Slot } from "@builder.io/qwik";
-import { routeLoader$, type RequestHandler } from "@builder.io/qwik-city";
-import { readdirSync, readFileSync } from "node:fs";
-import { join } from "node:path";
+import { type RequestHandler, server$, routeLoader$ } from "@builder.io/qwik-city";
 
 export interface Project {
   slug: string;
@@ -14,9 +12,13 @@ export interface Project {
   content: string;
 }
 
-export const useProjects = routeLoader$<{
-  [key: string]: Project;
-}>(async () => {
+export const useProjects = routeLoader$(async () => {
+  return await project();
+})
+
+export const project = server$(async () => {
+  const { readdirSync, readFileSync } = await import("fs");
+  const { join } = await import("path");
   const { default: matter } = await import("gray-matter");
 
   const allProjects = readdirSync(
@@ -53,7 +55,7 @@ export const useProjects = routeLoader$<{
     return acc;
   }, {});
 
-  return projects;
+  return projects as Record<string, Project>;
 });
 
 
