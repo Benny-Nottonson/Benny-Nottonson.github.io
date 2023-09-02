@@ -3,7 +3,7 @@ import { useLocation } from "@builder.io/qwik-city";
 import Header from "./header";
 import Mdx from "./mdx";
 import type { DocumentHead } from "@builder.io/qwik-city";
-import { useProjects } from "..";
+import { useProjects } from "~/routes/layout";
 
 export default component$(() => {
   const allProjects = useProjects().value;

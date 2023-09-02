@@ -1,17 +1,9 @@
 import { component$ } from "@builder.io/qwik";
 import Card from "../card/card";
+import { Project } from "~/routes/layout";
 
 interface Props {
-  project: {
-    slug: string;
-    published: boolean;
-    date: string;
-    title: string;
-    description: string;
-    url: string;
-    repository: string;
-    content: string;
-  };
+  project: Project;
   isFeatured?: boolean;
 }
 
