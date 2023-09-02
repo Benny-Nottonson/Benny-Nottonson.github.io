@@ -23,7 +23,7 @@ export const project = server$(async () => {
   const allProjects = await Promise.all(
     Object.keys(projectFiles).map(async (fileName) => {
       const slug = fileName.replace(/\.mdx$/, "");
-      const fileContents = await import(`./src/content/projects/${fileName}`).then((module) => module.default);
+      const fileContents = await projectFiles[fileName]() as string;
       const { data } = matter(fileContents);
       const date = data.date ? data.date : null;
       const published = data.published ?? false;
