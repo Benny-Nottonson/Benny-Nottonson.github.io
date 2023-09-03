@@ -37,7 +37,7 @@ export default component$(() => {
           <ProjectCard project={featured} key={featured.slug} isFeatured />
           <div class="flex flex-col w-full gap-8 mx-auto border-t border-gray-900/10 lg:mx-0 lg:border-t-0 ">
             {[top2, top3].map((project) => (
-              <ProjectCard project={project} key={project.slug} />
+              <ProjectCard project={project} key={project.slug!} />
             ))}
           </div>
         </div>

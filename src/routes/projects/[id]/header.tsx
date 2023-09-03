@@ -1,32 +1,26 @@
+import type { NoSerialize} from "@builder.io/qwik";
 import { component$, useSignal, useVisibleTask$ } from "@builder.io/qwik";
+import type { Project } from "~/routes/layout";
 
-interface Project {
-  slug: string;
-  published: boolean;
-  date: string;
-  title: string;
-  description: string;
-  url: string;
-  repository: string;
-  content: string;
+interface HeaderProps {
+  project: NoSerialize<Project>;
 }
 
-export default component$((p: { project: Project }) => {
+export default component$(({project}: HeaderProps) => {
   const ref = useSignal<HTMLElement>();
   const isIntersecting = useSignal(true);
-  const project = p.project;
 
   const links: { label: string; href: string }[] = [];
-  if (project.repository) {
+  if (project!.repository) {
     links.push({
       label: "GitHub",
-      href: `https://github.com/${project.repository}`,
+      href: `https://github.com/${project!.repository}`,
     });
   }
-  if (project.url) {
+  if (project!.url) {
     links.push({
       label: "Website",
-      href: project.url,
+      href: project!.url,
     });
   }
   useVisibleTask$(() => {
@@ -151,10 +145,10 @@ export default component$((p: { project: Project }) => {
         <div class="mx-auto max-w-7xl px-6 lg:px-8 text-center flex flex-col items-center">
           <div class="mx-auto max-w-2xl lg:mx-0">
             <h1 class="text-4xl font-bold tracking-tight text-white sm:text-6xl font-display">
-              {project.title}
+              {project!.title}
             </h1>
             <p class="mt-6 text-lg leading-8 text-zinc-300">
-              {project.description}
+              {project!.description}
             </p>
           </div>
 

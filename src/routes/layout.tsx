@@ -1,5 +1,9 @@
-import { component$, Slot } from "@builder.io/qwik";
-import { type RequestHandler, server$, routeLoader$ } from "@builder.io/qwik-city";
+import { component$, noSerialize, Slot } from "@builder.io/qwik";
+import {
+  type RequestHandler,
+  routeLoader$,
+} from "@builder.io/qwik-city";
+import type { JSXNode } from "@builder.io/qwik/jsx-runtime";
 
 export interface Project {
   slug: string;
@@ -8,30 +12,30 @@ export interface Project {
   title: string;
   description: string;
   url: string;
-  repository: string;
-  content: string;
+  repository?: string;
+  content: JSXNode;
 }
 
 export const useProjects = routeLoader$(async () => {
-  return await project();
-})
+  const projectFiles = import.meta.glob("../content/projects/*.mdx") as Record<string, () => Promise<
+    { default: () => JSXNode; frontmatter: any }
+  >>;
 
-export const project = server$(async () => {
-  const projectFiles = import.meta.glob('./src/content/projects/*.mdx');
-  const { default: matter } = await import("gray-matter");
-
-  const allProjects = await Promise.all(
-    Object.keys(projectFiles).map(async (fileName) => {
-      const slug = fileName.replace(/\.mdx$/, "");
-      const fileContents = await projectFiles[fileName]() as string;
-      const { data } = matter(fileContents);
+  const allProjects: Project[] = await Promise.all(
+    Object.entries(projectFiles).map(async ([fileName, project]) => {
+      const slug = 
+      fileName
+        .replace("../content/projects/", "")
+        .replace(".mdx", "");
+      const fileContents = await project();
+      const data = fileContents.frontmatter;
       const date = data.date ? data.date : null;
       const published = data.published ?? false;
       const title = data.title ?? "";
       const description = data.description ?? "";
       const url = data.url ?? "";
       const repository = data.repository ?? "";
-      const content = fileContents.split("---").slice(2).join("---");
+      const content = fileContents.default();
       return {
         slug,
         published,
@@ -43,7 +47,7 @@ export const project = server$(async () => {
         content,
         ...data,
       };
-    })
+    }),
   );
 
   const projects = allProjects.reduce((acc: any, project) => {
@@ -51,9 +55,8 @@ export const project = server$(async () => {
     return acc;
   }, {});
 
-  return projects as Record<string, Project>;
+  return noSerialize(projects) as Record<string, Project>;
 });
-
 
 export const onGet: RequestHandler = async ({ cacheControl }) => {
   // Control caching for this request for best performance and to reduce hosting costs:
