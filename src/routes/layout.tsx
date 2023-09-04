@@ -1,8 +1,6 @@
+import type { NoSerialize } from "@builder.io/qwik";
 import { component$, noSerialize, Slot } from "@builder.io/qwik";
-import {
-  type RequestHandler,
-  routeLoader$,
-} from "@builder.io/qwik-city";
+import { type RequestHandler, routeLoader$ } from "@builder.io/qwik-city";
 import type { JSXNode } from "@builder.io/qwik/jsx-runtime";
 
 export interface Project {
@@ -13,18 +11,18 @@ export interface Project {
   description: string;
   url: string;
   repository?: string;
-  content: JSXNode;
+  content: NoSerialize<JSXNode>;
 }
 
 export const useProjects = routeLoader$(async () => {
-  const projectFiles = import.meta.glob("../content/projects/*.mdx") as Record<string, () => Promise<
-    { default: () => JSXNode; frontmatter: any }
-  >>;
+  const projectFiles = import.meta.glob("../content/projects/*.mdx") as Record<
+    string,
+    () => Promise<{ default: () => JSXNode; frontmatter: any }>
+  >;
 
   const allProjects: Project[] = await Promise.all(
     Object.entries(projectFiles).map(async ([fileName, project]) => {
-      const slug = 
-      fileName
+      const slug = fileName
         .replace("../content/projects/", "")
         .replace(".mdx", "");
       const fileContents = await project();
@@ -52,10 +50,11 @@ export const useProjects = routeLoader$(async () => {
 
   const projects = allProjects.reduce((acc: any, project) => {
     acc[project.slug] = project;
+    acc[project.slug].content = noSerialize(project.content);
     return acc;
   }, {});
 
-  return noSerialize(projects) as Record<string, Project>;
+  return projects as Record<string, Project>;
 });
 
 export const onGet: RequestHandler = async ({ cacheControl }) => {

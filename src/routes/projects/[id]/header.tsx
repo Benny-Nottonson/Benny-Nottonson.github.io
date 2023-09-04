@@ -1,12 +1,11 @@
-import type { NoSerialize} from "@builder.io/qwik";
 import { component$, useSignal, useVisibleTask$ } from "@builder.io/qwik";
 import type { Project } from "~/routes/layout";
 
 interface HeaderProps {
-  project: NoSerialize<Project>;
+  project: Project;
 }
 
-export default component$(({project}: HeaderProps) => {
+export default component$(({ project }: HeaderProps) => {
   const ref = useSignal<HTMLElement>();
   const isIntersecting = useSignal(true);
 

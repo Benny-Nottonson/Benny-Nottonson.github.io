@@ -1,4 +1,4 @@
-import { component$, noSerialize, useVisibleTask$ } from "@builder.io/qwik";
+import { component$, useVisibleTask$ } from "@builder.io/qwik";
 import { useLocation } from "@builder.io/qwik-city";
 import Header from "./header";
 import type { DocumentHead } from "@builder.io/qwik-city";
@@ -10,7 +10,7 @@ export default component$(() => {
   const project = allProjects[projectId];
 
   useVisibleTask$(() => {
-    document. title = `${project.title} | Benny Nottonson`;
+    document.title = `${project.title} | Benny Nottonson`;
     document
       .querySelector('meta[name="description"]')
       ?.setAttribute("content", project.description);
@@ -18,7 +18,7 @@ export default component$(() => {
 
   return (
     <div class="w-full bg-zinc-50 min-h-screen">
-      <Header project={noSerialize(project)} />
+      <Header project={project} />
       <article class="px-4 py-12 mx-auto prose prose-zinc prose-quoteless">
         {project.content}
       </article>
