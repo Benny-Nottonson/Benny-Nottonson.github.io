@@ -10,8 +10,10 @@ export default component$(({ project }: HeaderProps) => {
   const isIntersecting = useSignal(true);
 
   const links: { label: string; href: string }[] = [
-    ...(project!.repository ? [{ label: "GitHub", href: `https://github.com/${project!.repository}` }] : []),
-    ...(project!.url ? [{ label: "Website", href: project!.url }] : [])
+    ...(project!.repository
+      ? [{ label: "GitHub", href: `https://github.com/${project!.repository}` }]
+      : []),
+    ...(project!.url ? [{ label: "Website", href: project!.url }] : []),
   ];
 
   useVisibleTask$(() => {
