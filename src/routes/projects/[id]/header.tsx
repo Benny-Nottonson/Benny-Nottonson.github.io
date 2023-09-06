@@ -9,19 +9,11 @@ export default component$(({ project }: HeaderProps) => {
   const ref = useSignal<HTMLElement>();
   const isIntersecting = useSignal(true);
 
-  const links: { label: string; href: string }[] = [];
-  if (project!.repository) {
-    links.push({
-      label: "GitHub",
-      href: `https://github.com/${project!.repository}`,
-    });
-  }
-  if (project!.url) {
-    links.push({
-      label: "Website",
-      href: project!.url,
-    });
-  }
+  const links: { label: string; href: string }[] = [
+    ...(project!.repository ? [{ label: "GitHub", href: `https://github.com/${project!.repository}` }] : []),
+    ...(project!.url ? [{ label: "Website", href: project!.url }] : [])
+  ];
+
   useVisibleTask$(() => {
     if (!ref.value) return;
     const observer = new IntersectionObserver(
