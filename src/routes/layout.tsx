@@ -20,41 +20,39 @@ export const useProjects = routeLoader$(async () => {
     () => Promise<{ default: () => JSXNode; frontmatter: any }>
   >;
 
-  const allProjects: Project[] = await Promise.all(
-    Object.entries(projectFiles).map(async ([fileName, project]) => {
-      const slug = fileName
-        .replace("../content/projects/", "")
-        .replace(".mdx", "");
-      const fileContents = await project();
-      const data = fileContents.frontmatter;
-      const date = data.date ? data.date : null;
-      const published = data.published ?? false;
-      const title = data.title ?? "";
-      const description = data.description ?? "";
-      const url = data.url ?? "";
-      const repository = data.repository ?? "";
-      const content = fileContents.default();
-      return {
-        slug,
-        published,
-        date,
-        title,
-        description,
-        url,
-        repository,
-        content,
-        ...data,
-      };
-    }),
-  );
+  const projects: Record<string, Project> = {};
 
-  const projects = allProjects.reduce((acc: any, project) => {
-    acc[project.slug] = project;
-    acc[project.slug].content = noSerialize(project.content);
-    return acc;
-  }, {});
+  for (const fileName in projectFiles) {
+    const slug = fileName
+      .replace("../content/projects/", "")
+      .replace(".mdx", "");
+    const fileContents = await projectFiles[fileName]();
+    const { frontmatter } = fileContents;
 
-  return projects as Record<string, Project>;
+    const {
+      date = null,
+      published = false,
+      title = "",
+      description = "",
+      url = "",
+      repository = "",
+      ...data
+    } = frontmatter;
+
+    projects[slug] = {
+      slug,
+      published,
+      date,
+      title,
+      description,
+      url,
+      repository,
+      content: noSerialize(fileContents.default()),
+      ...data,
+    };
+  }
+
+  return projects;
 });
 
 export const onGet: RequestHandler = async ({ cacheControl }) => {
