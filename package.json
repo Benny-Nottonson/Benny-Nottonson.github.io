@@ -44,5 +44,8 @@
     "vite": "4.4.9",
     "vite-tsconfig-paths": "4.2.1",
     "bun-types": "latest"
+  },
+  "dependencies": {
+    "sharp": "^0.32.5"
   }
 }
