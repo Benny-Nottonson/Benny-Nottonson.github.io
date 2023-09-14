@@ -31,9 +31,9 @@
   "private": true,
   "scripts": {
     "build": "qwik build",
-    "build.client": "bunx --bun vite build",
-    "build.preview": "bunx --bun vite build --ssr src/entry.preview.tsx",
-    "build.server": "bunx --bun vite build -c adapters/vercel-edge/vite.config.ts",
+    "build.client": "vite build",
+    "build.preview": "vite build --ssr src/entry.preview.tsx",
+    "build.server": "vite build -c adapters/vercel-edge/vite.config.ts",
     "build.types": "tsc --incremental --noEmit",
     "deploy": "vercel deploy",
     "dev": "bunx --bun vite --mode ssr",
