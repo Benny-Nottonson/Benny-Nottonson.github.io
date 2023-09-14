@@ -41,5 +41,8 @@
     "preview": "qwik build preview && vite preview --open",
     "start": "vite --open --mode ssr",
     "qwik": "qwik"
+  },
+  "dependencies": {
+    "sharp": "^0.32.5"
   }
 }
