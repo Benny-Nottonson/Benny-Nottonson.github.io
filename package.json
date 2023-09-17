@@ -1,5 +1,6 @@
 {
   "name": "bennynottonson.com",
+  "trustedDependencies": ["sharp"],
   "devDependencies": {
     "@builder.io/qwik": "^1.2.11",
     "@builder.io/qwik-city": "^1.2.11",
@@ -22,11 +23,8 @@
     "undici": "^5.24.0",
     "vercel": "^32.2.3",
     "vite": "^4.4.9",
-    "vite-tsconfig-paths": "^4.2.1"
+    "vite-tsconfig-paths": "^4.2.1",
   },
-  "trustedDependencies": [
-    "sharp"
-  ],
   "description": "App with Routing built-in ready to create your app",
   "private": true,
   "scripts": {
@@ -44,8 +42,5 @@
     "preview": "qwik build preview && vite preview --open",
     "start": "vite --open --mode ssr",
     "qwik": "qwik"
-  },
-  "dependencies": {
-    "sharp": "^0.32.5"
   }
 }
