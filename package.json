@@ -4,7 +4,6 @@
     "sharp"
   ],
   "devDependencies": {
-    "sharp": "^0.32.5",
     "@builder.io/qwik": "^1.2.11",
     "@builder.io/qwik-city": "^1.2.11",
     "@tailwindcss/typography": "^0.5.10",
