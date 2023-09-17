@@ -30,6 +30,7 @@
   "description": "App with Routing built-in ready to create your app",
   "private": true,
   "scripts": {
+    "prebuild": "cd node_modules/sharp && bun run install",
     "build": "qwik build",
     "build.client": "vite build",
     "build.preview": "vite build --ssr src/entry.preview.tsx",
