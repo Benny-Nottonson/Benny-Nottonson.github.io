@@ -24,6 +24,9 @@
     "vite": "4.4.9",
     "vite-tsconfig-paths": "4.2.1"
   },
+  "trustedDependencies": [
+    "sharp"
+  ],
   "description": "App with Routing built-in ready to create your app",
   "private": true,
   "scripts": {
