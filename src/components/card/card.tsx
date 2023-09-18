@@ -5,29 +5,68 @@ export default component$(() => {
   const gradientRef = useSignal<HTMLDivElement>();
 
   useVisibleTask$(() => {
-    document.addEventListener("mousemove", (e: MouseEvent) => {
-      if (container.value && gradientRef.value) {
-        const rect = container.value.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        if (
-          x > 0 &&
-          y > 0 &&
-          x < container.value.clientWidth &&
-          y < container.value.clientHeight
-        ) {
-          gradientRef.value.style.setProperty(
-            "background",
-            `radial-gradient(circle at ${x}px ${y}px, 
-              rgba(255, 255, 255, 0.1) 0, 
-              rgba(0, 0, 0, 0.1) 8rem
-            `,
-          );
-        } else {
-          gradientRef.value.style.setProperty("background", "transparent");
+    const containerValue = container.value!;
+    const gradientValue = gradientRef.value!;
+    let mouseOut = true;
+
+    const updateGradient = (
+      x: number,
+      y: number,
+      opacity: number = 0.1,
+      scale: number = 1,
+    ) => {
+      gradientValue.style.setProperty(
+        "background",
+        `radial-gradient(circle at ${x}px ${y}px, 
+          rgba(255, 255, 255, ${opacity}) 0, 
+          rgba(0, 0, 0, ${opacity}) ${8 * scale}rem
+        `,
+      );
+    };
+
+    const handleMouseAction = async (e: MouseEvent) => {
+      const { clientWidth, clientHeight } = containerValue;
+      const { left, top } = containerValue.getBoundingClientRect();
+      const { x, y } = { x: e.clientX - left, y: e.clientY - top };
+      const steps = 250;
+
+      if (e.type === "mousemove") {
+        mouseOut = false;
+        if (x > 0 && y > 0 && x < clientWidth && y < clientHeight) {
+          updateGradient(x, y);
+        }
+      } else if (e.type === "mouseleave") {
+        mouseOut = true;
+
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        for (let i = 0; i < steps && mouseOut; i++) {
+          const t = (i / steps) * Math.PI - Math.PI / 2;
+          const xOffset = x + ((clientWidth / 2 - x) * (Math.sin(t) + 1)) / 2;
+          const yOffset = y + ((clientHeight / 2 - y) * (Math.sin(t) + 1)) / 2;
+          updateGradient(xOffset, yOffset);
+          await new Promise((resolve) => setTimeout(resolve, 1));
+        }
+
+        const finalX = clientWidth / 2;
+        const finalY = clientHeight / 2;
+
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        for (let i = 0; i < steps && mouseOut; i++) {
+          const scale = 1 + (i / steps) * 2;
+          const opacity = (0.1 * (steps - i)) / steps;
+          updateGradient(finalX, finalY, opacity, scale);
+          await new Promise((resolve) => setTimeout(resolve, 1));
+        }
+
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        if (mouseOut) {
+          gradientValue.style.setProperty("background", "transparent");
         }
       }
-    });
+    };
+
+    containerValue.addEventListener("mousemove", handleMouseAction);
+    containerValue.addEventListener("mouseleave", handleMouseAction);
   });
 
   return (
