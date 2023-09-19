@@ -9,12 +9,7 @@ export default component$(() => {
     const gradientValue = gradientRef.value!;
     let mouseOut = true;
 
-    const updateGradient = (
-      x: number,
-      y: number,
-      opacity: number = 0.1,
-      scale: number = 1,
-    ) => {
+    const updateGradient = (x: number, y: number, opacity = 0.1, scale = 1) => {
       gradientValue.style.setProperty(
         "background",
         `radial-gradient(circle at ${x}px ${y}px, 
@@ -41,8 +36,10 @@ export default component$(() => {
         // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         for (let i = 0; i < steps && mouseOut; i++) {
           const t = (i / steps) * Math.PI - Math.PI / 2;
-          const xOffset = x + ((clientWidth / 2 - x) * (Math.sin(t) + 1)) / 2;
-          const yOffset = y + ((clientHeight / 2 - y) * (Math.sin(t) + 1)) / 2;
+          const diff = clientWidth / 2;
+          const sinTPlusOne = Math.sin(t) + 1;
+          const xOffset = x + ((diff - x) * sinTPlusOne) / 2;
+          const yOffset = y + ((diff - y) * sinTPlusOne) / 2;
           updateGradient(xOffset, yOffset);
           await new Promise((resolve) => setTimeout(resolve, 1));
         }
@@ -69,13 +66,15 @@ export default component$(() => {
     containerValue.addEventListener("mouseleave", handleMouseAction);
   });
 
+  const containerClass =
+    "overflow-hidden relative border rounded-xl md:gap-8 hover:border-zinc-400/50 border-zinc-600 min-h-full";
+  const gradientClass =
+    "absolute inset-0 z-0 bg-gradient-to-br via-slate-400/10 from-zinc-600/10 to-zinc-600/10";
+
   return (
-    <div
-      ref={container}
-      class="overflow-hidden relative border rounded-xl md:gap-8 hover:border-zinc-400/50 border-zinc-600 min-h-full"
-    >
+    <div ref={container} class={containerClass}>
       <div>
-        <div class="absolute inset-0 z-0 bg-gradient-to-br via-slate-400/10 from-zinc-600/10 to-zinc-600/10" />
+        <div class={gradientClass} />
         <div ref={gradientRef} class="absolute inset-0 z-10" />
         <Slot />
       </div>
