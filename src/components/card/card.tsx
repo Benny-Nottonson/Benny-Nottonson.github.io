@@ -1,71 +1,161 @@
-import { component$, Slot, useSignal, useVisibleTask$ } from "@builder.io/qwik";
+import {
+  component$,
+  Slot,
+  useSignal,
+  useVisibleTask$,
+} from "@builder.io/qwik";
 
-const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+class Background {
+  private gradientRef: HTMLDivElement | null = null;
+  private containerRef: HTMLDivElement | null = null;
+  private acceleration = 0.05;
+  private velocity = 0;
+  private opacity = 0;
+  private scale = 0;
+  private exit = true;
+  private position = { x: 0, y: 0 };
+  private target = { x: 0, y: 0 };
+  private offset = { x: 0, y: 0 };
+
+  constructor(gradientRef: HTMLDivElement, containerRef: HTMLDivElement) {
+    this.gradientRef = gradientRef;
+    this.containerRef = containerRef;
+    this.position = this.center();
+    this.target = this.center();
+    const { left, top } = this.containerRef!.getBoundingClientRect();
+      this.offset = {
+        x: left,
+        y: top,
+      };
+    this.attach();
+    this.animate();
+  }
+  
+  public update() {
+    this.gradientRef!.style.background = `radial-gradient(circle at ${this.position.x}px ${this.position.y}px, 
+         rgba(255, 255, 255, ${this.opacity}) 0, 
+         rgba(0, 0, 0, ${this.opacity}) ${8 * this.scale}rem
+       `;
+  }
+
+  public center() {
+    const { clientWidth, clientHeight } = this.containerRef!;
+    return {
+      x: clientWidth / 2,
+      y: clientHeight / 2,
+    };
+  }
+
+  public fadeIn() {
+    if (this.opacity >= 0.1) {
+      return;
+    }
+    this.opacity += 0.005;
+  }
+
+  public fadeOut() {
+    if (this.opacity <= 0 || !this.nearCenter()) {
+      return;
+    }
+    this.opacity -= 0.005;
+  }
+
+  public scaleIn() {
+    if (this.scale >= 1) {
+      return;
+    }
+    this.scale += 0.025;
+  }
+
+  public scaleOut() {
+    if (this.scale <= 0 || !this.nearCenter()) {
+      return;
+    }
+    this.scale -= 0.025;
+  }
+
+  private nearCenter() {
+    // Return if position and target are within 5% of each other
+    const thresholdX = this.containerRef!.clientWidth * 0.05;
+    const thresholdY = this.containerRef!.clientHeight * 0.05;
+    return (
+      Math.abs(this.position.x - this.target.x) < thresholdX &&
+      Math.abs(this.position.y - this.target.y) < thresholdY
+    );
+  }
+
+  public moveTowards(target: { x: number; y: number }) {
+    const dx = target.x - this.position.x;
+    const dy = target.y - this.position.y;
+    const ax = dx * this.acceleration;
+    const ay = dy * this.acceleration;
+    this.velocity += Math.sqrt(ax * ax + ay * ay);
+    this.position.x += ax;
+    this.position.y += ay;
+  }
+
+  public attach() {
+    this.containerRef!.addEventListener("mouseenter", (event) => {
+      this.exit = false;
+      this.target = {
+        x: event.clientX - this.offset.x,
+        y: event.clientY - this.offset.y,
+      };
+    });
+
+    this.containerRef!.addEventListener("mouseleave", () => {
+      this.exit = true;
+      this.target = this.center();
+    });
+
+    this.containerRef!.addEventListener("mousemove", (event) => {
+      this.target = {
+        x: event.clientX - this.offset.x,
+        y: event.clientY - this.offset.y,
+      };
+    });
+
+    document.addEventListener("scroll", () => {
+      const { left, top } = this.containerRef!.getBoundingClientRect();
+      this.offset = {
+        x: left,
+        y: top,
+      };
+    });
+  }
+
+  private animate() {
+    const updateFrame = () => {
+      // Calculate the new position based on the target
+      this.moveTowards(this.target);
+  
+      // Check the exit flag and call the appropriate methods
+      if (this.exit) {
+        this.fadeOut();
+        this.scaleOut();
+      } else {
+        this.fadeIn();
+        this.scaleIn();
+      }
+  
+      // Update the background
+      this.update();
+  
+      // Request the next animation frame
+      requestAnimationFrame(updateFrame);
+    };
+  
+    // Start the animation loop
+    updateFrame();
+  }
+}
 
 export default component$(() => {
   const container = useSignal<HTMLDivElement>();
   const gradientRef = useSignal<HTMLDivElement>();
 
   useVisibleTask$(() => {
-    const containerValue = container.value!;
-    const gradientValue = gradientRef.value!;
-    const { clientWidth, clientHeight } = containerValue;
-    const steps = 250;
-    let mouseOut = true;
-
-    const updateGradient = (x: number, y: number, opacity = 0.1, scale = 1) => {
-      gradientValue.style.background = `radial-gradient(circle at ${x}px ${y}px, 
-        rgba(255, 255, 255, ${opacity}) 0, 
-        rgba(0, 0, 0, ${opacity}) ${8 * scale}rem
-      `;
-    };
-
-    const handleMouseMove = async (e: MouseEvent) => {
-      const { left, top } = containerValue.getBoundingClientRect();
-      const { x, y } = { x: e.clientX - left, y: e.clientY - top };
-      mouseOut = false;
-
-      x > 0 &&
-        y > 0 &&
-        x < clientWidth &&
-        y < clientHeight &&
-        updateGradient(x, y);
-    };
-
-    const handleMouseLeave = async (e: MouseEvent) => {
-      const { left, top } = containerValue.getBoundingClientRect();
-      const { x, y } = { x: e.clientX - left, y: e.clientY - top };
-      mouseOut = true;
-
-      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-      for (let i = 0; i < steps && mouseOut; i++) {
-        const t = (i / steps) * Math.PI - Math.PI / 2;
-        const sinTPlusOne = Math.sin(t) + 1;
-        const xOffset = x + ((clientWidth / 2 - x) * sinTPlusOne) / 2;
-        const yOffset = y + ((clientHeight / 2 - y) * sinTPlusOne) / 2;
-        updateGradient(xOffset, yOffset);
-        await delay(1);
-      }
-
-      const { finalX, finalY } = {
-        finalX: clientWidth / 2,
-        finalY: clientHeight / 2,
-      };
-
-      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-      for (let i = 0; i < steps && mouseOut; i++) {
-        const scale = 1 + (i / steps) * 2;
-        const opacity = (0.1 * (steps - i)) / steps;
-        updateGradient(finalX, finalY, opacity, scale);
-        await delay(1);
-      }
-
-      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-      mouseOut && gradientValue.style.setProperty("background", "transparent");
-    };
-
-    containerValue.addEventListener("mousemove", handleMouseMove);
-    containerValue.addEventListener("mouseleave", handleMouseLeave);
+      new Background(gradientRef.value!, container.value!);
   });
 
   return (
