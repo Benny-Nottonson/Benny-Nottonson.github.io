@@ -6,39 +6,31 @@ import {
 } from "@builder.io/qwik";
 
 class Background {
-  private gradientRef: HTMLDivElement | null = null;
-  private containerRef: HTMLDivElement | null = null;
-  private acceleration = 0.05;
-  private velocity = 0;
+  private acceleration = 0.1;
   private opacity = 0;
   private scale = 0;
   private exit = true;
+  private velocity = 0;
   private position = { x: 0, y: 0 };
   private target = { x: 0, y: 0 };
   private offset = { x: 0, y: 0 };
 
-  constructor(gradientRef: HTMLDivElement, containerRef: HTMLDivElement) {
-    this.gradientRef = gradientRef;
-    this.containerRef = containerRef;
+  constructor(private gradientRef: HTMLDivElement, private containerRef: HTMLDivElement) {
     this.position = this.center();
     this.target = this.center();
-    const { left, top } = this.containerRef!.getBoundingClientRect();
-      this.offset = {
-        x: left,
-        y: top,
-      };
+    this.offset = this.getOffset();
     this.attach();
     this.animate();
   }
-  
-  public update() {
+
+  private update() {
     this.gradientRef!.style.background = `radial-gradient(circle at ${this.position.x}px ${this.position.y}px, 
-         rgba(255, 255, 255, ${this.opacity}) 0, 
-         rgba(0, 0, 0, ${this.opacity}) ${8 * this.scale}rem
-       `;
+      rgba(255, 255, 255, ${this.opacity}) 0, 
+      rgba(0, 0, 0, ${this.opacity}) ${8 * this.scale}rem
+    `;
   }
 
-  public center() {
+  private center() {
     const { clientWidth, clientHeight } = this.containerRef!;
     return {
       x: clientWidth / 2,
@@ -46,36 +38,16 @@ class Background {
     };
   }
 
-  public fadeIn() {
-    if (this.opacity >= 0.1) {
-      return;
-    }
-    this.opacity += 0.005;
+  private fadeOrb(increment: number) {
+    this.opacity = Math.min(0.1, Math.max(0, this.opacity + increment));
   }
 
-  public fadeOut() {
-    if (this.opacity <= 0 || !this.nearCenter()) {
-      return;
-    }
-    this.opacity -= 0.005;
-  }
 
-  public scaleIn() {
-    if (this.scale >= 1) {
-      return;
-    }
-    this.scale += 0.025;
-  }
-
-  public scaleOut() {
-    if (this.scale <= 0 || !this.nearCenter()) {
-      return;
-    }
-    this.scale -= 0.025;
+  private scaleOrb(increment: number) {
+    this.scale = Math.min(1, Math.max(0, this.scale + increment));
   }
 
   private nearCenter() {
-    // Return if position and target are within 5% of each other
     const thresholdX = this.containerRef!.clientWidth * 0.05;
     const thresholdY = this.containerRef!.clientHeight * 0.05;
     return (
@@ -84,23 +56,22 @@ class Background {
     );
   }
 
-  public moveTowards(target: { x: number; y: number }) {
+  private moveTowards(target: { x: number; y: number }) {
     const dx = target.x - this.position.x;
     const dy = target.y - this.position.y;
-    const ax = dx * this.acceleration;
-    const ay = dy * this.acceleration;
+    const angle = Math.atan2(dy, dx);
+    const ax = Math.cos(angle) * this.acceleration;
+    const ay = Math.sin(angle) * this.acceleration;
     this.velocity += Math.sqrt(ax * ax + ay * ay);
-    this.position.x += ax;
-    this.position.y += ay;
+    this.position.x += ax * this.velocity;
+    this.position.y += ay * this.velocity;
   }
+  
 
-  public attach() {
+  private attach() {
     this.containerRef!.addEventListener("mouseenter", (event) => {
       this.exit = false;
-      this.target = {
-        x: event.clientX - this.offset.x,
-        y: event.clientY - this.offset.y,
-      };
+      this.target = this.getMousePosition(event);
     });
 
     this.containerRef!.addEventListener("mouseleave", () => {
@@ -109,44 +80,44 @@ class Background {
     });
 
     this.containerRef!.addEventListener("mousemove", (event) => {
-      this.target = {
-        x: event.clientX - this.offset.x,
-        y: event.clientY - this.offset.y,
-      };
+      this.target = this.getMousePosition(event);
     });
 
     document.addEventListener("scroll", () => {
-      const { left, top } = this.containerRef!.getBoundingClientRect();
-      this.offset = {
-        x: left,
-        y: top,
-      };
+      this.offset = this.getOffset();
     });
   }
 
   private animate() {
     const updateFrame = () => {
-      // Calculate the new position based on the target
       this.moveTowards(this.target);
-  
-      // Check the exit flag and call the appropriate methods
-      if (this.exit) {
-        this.fadeOut();
-        this.scaleOut();
-      } else {
-        this.fadeIn();
-        this.scaleIn();
+
+      if (!this.exit) {
+        this.fadeOrb(0.005);
+        this.scaleOrb(0.025);
+      } else if (this.nearCenter()) {
+        this.fadeOrb(-0.005);
+        this.scaleOrb(-0.025);
       }
-  
-      // Update the background
+
       this.update();
-  
-      // Request the next animation frame
+
       requestAnimationFrame(updateFrame);
     };
-  
-    // Start the animation loop
+
     updateFrame();
+  }
+
+  private getOffset() {
+    const { left, top } = this.containerRef!.getBoundingClientRect();
+    return { x: left, y: top };
+  }
+
+  private getMousePosition(event: MouseEvent) {
+    return {
+      x: event.clientX - this.offset.x,
+      y: event.clientY - this.offset.y,
+    };
   }
 }
 
