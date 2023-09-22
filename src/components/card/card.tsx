@@ -24,8 +24,12 @@ export default component$(() => {
       const { left, top } = containerValue.getBoundingClientRect();
       const { x, y } = { x: e.clientX - left, y: e.clientY - top };
       mouseOut = false;
-      
-      x > 0 && y > 0 && x < clientWidth && y < clientHeight && updateGradient(x, y);
+
+      x > 0 &&
+        y > 0 &&
+        x < clientWidth &&
+        y < clientHeight &&
+        updateGradient(x, y);
     };
 
     const handleMouseLeave = async (e: MouseEvent) => {
@@ -43,7 +47,10 @@ export default component$(() => {
         await delay(1);
       }
 
-      const { finalX, finalY } = { finalX: clientWidth / 2, finalY: clientHeight / 2 };
+      const { finalX, finalY } = {
+        finalX: clientWidth / 2,
+        finalY: clientHeight / 2,
+      };
 
       // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       for (let i = 0; i < steps && mouseOut; i++) {
