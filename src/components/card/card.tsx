@@ -1,21 +1,20 @@
-import {
-  component$,
-  Slot,
-  useSignal,
-  useVisibleTask$,
-} from "@builder.io/qwik";
+import { component$, Slot, useSignal, useVisibleTask$ } from "@builder.io/qwik";
 
 class Background {
-  private acceleration = 0.1;
+  private gradientRef: HTMLDivElement | null = null;
+  private containerRef: HTMLDivElement | null = null;
+  private acceleration = 0.05;
+  private velocity = 0;
   private opacity = 0;
   private scale = 0;
   private exit = true;
-  private velocity = 0;
   private position = { x: 0, y: 0 };
   private target = { x: 0, y: 0 };
   private offset = { x: 0, y: 0 };
 
-  constructor(private gradientRef: HTMLDivElement, private containerRef: HTMLDivElement) {
+  constructor(gradientRef: HTMLDivElement, containerRef: HTMLDivElement) {
+    this.gradientRef = gradientRef;
+    this.containerRef = containerRef;
     this.position = this.center();
     this.target = this.center();
     this.offset = this.getOffset();
@@ -23,14 +22,24 @@ class Background {
     this.animate();
   }
 
-  private update() {
-    this.gradientRef!.style.background = `radial-gradient(circle at ${this.position.x}px ${this.position.y}px, 
-      rgba(255, 255, 255, ${this.opacity}) 0, 
-      rgba(0, 0, 0, ${this.opacity}) ${8 * this.scale}rem
-    `;
+  private getOffset() {
+    const { left, top } = this.containerRef!.getBoundingClientRect();
+    return {
+      x: left,
+      y: top,
+    };
   }
 
-  private center() {
+  public update() {
+    this.gradientRef!.style.background = `radial-gradient(circle at ${
+      this.position.x
+    }px ${this.position.y}px, 
+         rgba(255, 255, 255, ${this.opacity}) 0, 
+         rgba(0, 0, 0, ${this.opacity}) ${8 * this.scale}rem
+       `;
+  }
+
+  public center() {
     const { clientWidth, clientHeight } = this.containerRef!;
     return {
       x: clientWidth / 2,
@@ -38,86 +47,75 @@ class Background {
     };
   }
 
-  private fadeOrb(increment: number) {
-    this.opacity = Math.min(0.1, Math.max(0, this.opacity + increment));
-  }
-
-
-  private scaleOrb(increment: number) {
-    this.scale = Math.min(1, Math.max(0, this.scale + increment));
+  public adjustOrb(
+    property: "opacity" | "scale",
+    direction: "in" | "out",
+    min: number,
+    max: number,
+    step: number,
+  ) {
+    const currentValue = this[property];
+    if (
+      (direction === "in" && currentValue >= max) ||
+      (direction === "out" && (currentValue <= min || !this.nearCenter()))
+    ) {
+      return;
+    }
+    this[property] += (direction === "in" ? 1 : -1) * step;
   }
 
   private nearCenter() {
-    const thresholdX = this.containerRef!.clientWidth * 0.05;
-    const thresholdY = this.containerRef!.clientHeight * 0.05;
     return (
-      Math.abs(this.position.x - this.target.x) < thresholdX &&
-      Math.abs(this.position.y - this.target.y) < thresholdY
+      Math.abs(this.position.x - this.target.x) <
+        this.containerRef!.clientWidth * 0.025 &&
+      Math.abs(this.position.y - this.target.y) <
+        this.containerRef!.clientHeight * 0.025
     );
   }
 
-  private moveTowards(target: { x: number; y: number }) {
+  public moveTowards(target: { x: number; y: number }) {
     const dx = target.x - this.position.x;
     const dy = target.y - this.position.y;
-    const angle = Math.atan2(dy, dx);
-    const ax = Math.cos(angle) * this.acceleration;
-    const ay = Math.sin(angle) * this.acceleration;
+    const ax = dx * this.acceleration;
+    const ay = dy * this.acceleration;
     this.velocity += Math.sqrt(ax * ax + ay * ay);
-    this.position.x += ax * this.velocity;
-    this.position.y += ay * this.velocity;
+    this.position.x += ax;
+    this.position.y += ay;
   }
-  
 
-  private attach() {
-    this.containerRef!.addEventListener("mouseenter", (event) => {
+  public attach() {
+    const onEnter = (event: MouseEvent) => {
       this.exit = false;
-      this.target = this.getMousePosition(event);
-    });
+      const { clientX, clientY } = event;
+      this.target = { x: clientX - this.offset.x, y: clientY - this.offset.y };
+    };
 
-    this.containerRef!.addEventListener("mouseleave", () => {
+    const onLeave = () => {
       this.exit = true;
       this.target = this.center();
-    });
+    };
 
-    this.containerRef!.addEventListener("mousemove", (event) => {
-      this.target = this.getMousePosition(event);
-    });
+    const onMouseMove = (event: MouseEvent) => {
+      const { clientX, clientY } = event;
+      this.target = { x: clientX - this.offset.x, y: clientY - this.offset.y };
+    };
 
-    document.addEventListener("scroll", () => {
-      this.offset = this.getOffset();
-    });
+    this.containerRef!.addEventListener("mouseenter", onEnter);
+    this.containerRef!.addEventListener("mouseleave", onLeave);
+    this.containerRef!.addEventListener("mousemove", onMouseMove);
+    document.addEventListener("scroll", () => (this.offset = this.getOffset()));
   }
 
   private animate() {
     const updateFrame = () => {
       this.moveTowards(this.target);
-
-      if (!this.exit) {
-        this.fadeOrb(0.005);
-        this.scaleOrb(0.025);
-      } else if (this.nearCenter()) {
-        this.fadeOrb(-0.005);
-        this.scaleOrb(-0.025);
-      }
-
+      this.adjustOrb("opacity", this.exit ? "out" : "in", 0, 0.1, 0.005);
+      this.adjustOrb("scale", this.exit ? "out" : "in", 0, 1, 0.05);
       this.update();
-
       requestAnimationFrame(updateFrame);
     };
 
     updateFrame();
-  }
-
-  private getOffset() {
-    const { left, top } = this.containerRef!.getBoundingClientRect();
-    return { x: left, y: top };
-  }
-
-  private getMousePosition(event: MouseEvent) {
-    return {
-      x: event.clientX - this.offset.x,
-      y: event.clientY - this.offset.y,
-    };
   }
 }
 
@@ -126,7 +124,7 @@ export default component$(() => {
   const gradientRef = useSignal<HTMLDivElement>();
 
   useVisibleTask$(() => {
-      new Background(gradientRef.value!, container.value!);
+    new Background(gradientRef.value!, container.value!);
   });
 
   return (
