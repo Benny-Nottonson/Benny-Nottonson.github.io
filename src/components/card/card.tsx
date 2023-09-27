@@ -4,7 +4,6 @@ class Background {
   private gradientRef: HTMLDivElement | null = null;
   private containerRef: HTMLDivElement | null = null;
   private acceleration = 0.05;
-  private velocity = 0;
   private opacity = 0;
   private scale = 0;
   private exit = true;
@@ -33,31 +32,28 @@ class Background {
   public update() {
     this.gradientRef!.style.background = `radial-gradient(circle at ${
       this.position.x
-    }px ${this.position.y}px, 
-         rgba(255, 255, 255, ${this.opacity}) 0, 
-         rgba(0, 0, 0, ${this.opacity}) ${8 * this.scale}rem
-       `;
+    }px ${this.position.y}px, rgba(255, 255, 255, ${
+      this.opacity
+    }) 0, rgba(0, 0, 0, ${this.opacity}) ${8 * this.scale}rem`;
   }
 
   public center() {
-    const { clientWidth, clientHeight } = this.containerRef!;
     return {
-      x: clientWidth / 2,
-      y: clientHeight / 2,
+      x: this.containerRef!.clientWidth / 2,
+      y: this.containerRef!.clientHeight / 2,
     };
   }
 
   public adjustOrb(
     property: "opacity" | "scale",
     direction: "in" | "out",
-    min: number,
     max: number,
     step: number,
   ) {
     const currentValue = this[property];
     if (
       (direction === "in" && currentValue >= max) ||
-      (direction === "out" && (currentValue <= min || !this.nearCenter()))
+      (direction === "out" && (currentValue <= 0 || !this.nearCenter()))
     ) {
       return;
     }
@@ -74,25 +70,16 @@ class Background {
   }
 
   public moveTowards(target: { x: number; y: number }) {
-    const dx = target.x - this.position.x;
-    const dy = target.y - this.position.y;
-    const ax = dx * this.acceleration;
-    const ay = dy * this.acceleration;
-    this.velocity += Math.sqrt(ax * ax + ay * ay);
+    const ax = (target.x - this.position.x) * this.acceleration;
+    const ay = (target.y - this.position.y) * this.acceleration;
     this.position.x += ax;
     this.position.y += ay;
   }
 
   public attach() {
-    const onEnter = (event: MouseEvent) => {
-      this.exit = false;
-      const { clientX, clientY } = event;
-      this.target = { x: clientX - this.offset.x, y: clientY - this.offset.y };
-    };
-
-    const onLeave = () => {
-      this.exit = true;
-      this.target = this.center();
+    const onEnterOrLeave = (event: MouseEvent) => {
+      this.exit = event.type === "mouseleave";
+      this.target = this.exit ? this.center() : this.target;
     };
 
     const onMouseMove = (event: MouseEvent) => {
@@ -100,17 +87,18 @@ class Background {
       this.target = { x: clientX - this.offset.x, y: clientY - this.offset.y };
     };
 
-    this.containerRef!.addEventListener("mouseenter", onEnter);
-    this.containerRef!.addEventListener("mouseleave", onLeave);
+    this.containerRef!.addEventListener("mouseenter", onEnterOrLeave);
+    this.containerRef!.addEventListener("mouseleave", onEnterOrLeave);
     this.containerRef!.addEventListener("mousemove", onMouseMove);
     document.addEventListener("scroll", () => (this.offset = this.getOffset()));
   }
 
   private animate() {
     const updateFrame = () => {
+      const inOut = this.exit ? "out" : "in";
       this.moveTowards(this.target);
-      this.adjustOrb("opacity", this.exit ? "out" : "in", 0, 0.1, 0.005);
-      this.adjustOrb("scale", this.exit ? "out" : "in", 0, 1, 0.05);
+      this.adjustOrb("opacity", inOut, 0.1, 0.005);
+      this.adjustOrb("scale", inOut, 1, 0.05);
       this.update();
       requestAnimationFrame(updateFrame);
     };
