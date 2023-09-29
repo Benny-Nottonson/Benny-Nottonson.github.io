@@ -109,7 +109,7 @@ export default component$(({ project }: HeaderProps) => {
             <div class="grid grid-cols-1 gap-y-6 gap-x-8 text-base font-semibold leading-7 text-white sm:grid-cols-2 md:flex lg:gap-x-10">
               {links.map((link) => (
                 <a target="_blank" key={link.label} href={link.href}>
-                  {link.label} <span aria-hidden="true">&rarr;</span>
+                  {link.label} <span>&rarr;</span>
                 </a>
               ))}
             </div>

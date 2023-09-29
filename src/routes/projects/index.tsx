@@ -6,15 +6,22 @@ import { useProjects } from "../layout";
 
 export default component$(() => {
   const allProjects = useProjects().value;
-  const [featured, top2, top3, ...sorted] = Object.values(allProjects).sort((a, b) => (b.date ? new Date(b.date).getTime() - new Date(a.date).getTime() : 1));
+  const [featured, top2, top3, ...sorted] = Object.values(allProjects).sort(
+    (a, b) =>
+      b.date ? new Date(b.date).getTime() - new Date(a.date).getTime() : 1,
+  );
 
   return (
     <div class="h-screen w-full overflow-x-hidden pb-8 bg-gradient-to-tl from-zinc-900/0 via-zinc-900 to-zinc-900/0">
       <Nav />
       <div class="px-6 pt-16 mx-auto space-y-8 max-w-7xl lg:px-8 md:space-y-16 md:pt-24 lg:pt-32">
         <div class="max-w-2xl mx-auto lg:mx-0">
-          <h2 class="text-3xl font-bold tracking-tight text-zinc-100 sm:text-4xl">Projects</h2>
-          <p class="mt-4 text-zinc-400">Some of the projects are from school and some are on my own time.</p>
+          <h2 class="text-3xl font-bold tracking-tight text-zinc-100 sm:text-4xl">
+            Projects
+          </h2>
+          <p class="mt-4 text-zinc-400">
+            Some of the projects are from school and some are on my own time.
+          </p>
         </div>
         <div class="w-full h-px bg-zinc-800" />
         <div class="grid grid-cols-1 gap-8 mx-auto lg:grid-cols-2 ">

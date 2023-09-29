@@ -94,6 +94,8 @@ class Background {
     this.containerRef!.addEventListener("mouseenter", onEnterOrLeave);
     this.containerRef!.addEventListener("mouseleave", onEnterOrLeave);
     this.containerRef!.addEventListener("mousemove", onMouseMove);
+    window.addEventListener("wheel", this.updateOffset.bind(this));
+    window.addEventListener("resize", this.updateOffset.bind(this));
   }
 
   private animate() {
@@ -115,10 +117,7 @@ export default component$(() => {
   const gradientRef = useSignal<HTMLDivElement>();
 
   useVisibleTask$(() => {
-    const bg = new Background(gradientRef.value!, container.value!);
-    window.addEventListener("scroll", () => {
-      bg.updateOffset();
-    });
+    new Background(gradientRef.value!, container.value!);
   });
 
   return (

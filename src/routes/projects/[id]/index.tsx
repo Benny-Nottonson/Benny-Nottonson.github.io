@@ -5,9 +5,8 @@ import type { DocumentHead } from "@builder.io/qwik-city";
 import { useProjects } from "~/routes/layout";
 
 export default component$(() => {
-  const allProjects = useProjects().value;
   const projectId = useLocation().params.id;
-  const project = allProjects[projectId];
+  const project = useProjects().value[projectId];
 
   useVisibleTask$(() => {
     document.title = `${project.title} | Benny Nottonson`;

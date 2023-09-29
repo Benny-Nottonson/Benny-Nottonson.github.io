@@ -27,10 +27,10 @@ export default component$(() => {
   return (
     <header ref={ref}>
       <div
-        class={`fixed inset-x-0 top-0 z-50 backdrop-blur  duration-200 border-b ${
+        class={`fixed inset-x-0 top-0 z-50 backdrop-blur duration-200 border-b ${
           isIntersecting.value
             ? "bg-zinc-900/0 border-transparent"
-            : "bg-zinc-900/500  border-zinc-800"
+            : "bg-zinc-900/500 border-zinc-800"
         }`}
       >
         <div class="container flex flex-row-reverse items-center justify-between p-6 mx-auto">
@@ -45,7 +45,7 @@ export default component$(() => {
             class="duration-200 text-zinc-300 hover:text-zinc-100"
             aria-label="return"
           >
-            <div class="w-6 h-6 ">
+            <div class="w-6 h-6">
               <SocialIcon>
                 <path d="m12 19-7-7 7-7" />
                 <path d="M19 12H5" />
