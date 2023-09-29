@@ -69,6 +69,10 @@ class Background {
     );
   }
 
+  public updateOffset() {
+    this.offset = this.getOffset();
+  }
+
   public moveTowards(target: { x: number; y: number }) {
     const ax = (target.x - this.position.x) * this.acceleration;
     const ay = (target.y - this.position.y) * this.acceleration;
@@ -90,7 +94,6 @@ class Background {
     this.containerRef!.addEventListener("mouseenter", onEnterOrLeave);
     this.containerRef!.addEventListener("mouseleave", onEnterOrLeave);
     this.containerRef!.addEventListener("mousemove", onMouseMove);
-    document.addEventListener("scroll", () => (this.offset = this.getOffset()));
   }
 
   private animate() {
@@ -112,7 +115,10 @@ export default component$(() => {
   const gradientRef = useSignal<HTMLDivElement>();
 
   useVisibleTask$(() => {
-    new Background(gradientRef.value!, container.value!);
+    const bg = new Background(gradientRef.value!, container.value!);
+    window.addEventListener("scroll", () => {
+      bg.updateOffset();
+    });
   });
 
   return (
