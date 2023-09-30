@@ -1,5 +1,12 @@
 import { component$, Slot, useSignal, useVisibleTask$ } from "@builder.io/qwik";
 
+const opacityMax = 0.1;
+const scaleMax = 1;
+const opacityStep = 0.005;
+const scaleStep = 0.05;
+const distanceThreshold = 0.025;
+const baseScale = 8;
+
 class Background {
   private gradientRef: HTMLDivElement | null = null;
   private containerRef: HTMLDivElement | null = null;
@@ -34,7 +41,7 @@ class Background {
       this.position.x
     }px ${this.position.y}px, rgba(255, 255, 255, ${
       this.opacity
-    }) 0, rgba(0, 0, 0, ${this.opacity}) ${8 * this.scale}rem`;
+    }) 0, rgba(0, 0, 0, ${this.opacity}) ${baseScale * this.scale}rem`;
   }
 
   public center() {
@@ -63,9 +70,9 @@ class Background {
   private nearCenter() {
     return (
       Math.abs(this.position.x - this.target.x) <
-        this.containerRef!.clientWidth * 0.025 &&
+        this.containerRef!.clientWidth * distanceThreshold &&
       Math.abs(this.position.y - this.target.y) <
-        this.containerRef!.clientHeight * 0.025
+        this.containerRef!.clientHeight * distanceThreshold
     );
   }
 
@@ -102,8 +109,8 @@ class Background {
     const updateFrame = () => {
       const inOut = this.exit ? "out" : "in";
       this.moveTowards(this.target);
-      this.adjustOrb("opacity", inOut, 0.1, 0.005);
-      this.adjustOrb("scale", inOut, 1, 0.05);
+      this.adjustOrb("opacity", inOut, opacityMax, opacityStep);
+      this.adjustOrb("scale", inOut, scaleMax, scaleStep);
       this.update();
       requestAnimationFrame(updateFrame);
     };
