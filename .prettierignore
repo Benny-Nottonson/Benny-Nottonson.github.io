@@ -37,4 +37,3 @@ package-lock.json
 yarn.lock
 server
 src/projects.ts
-*.min.js

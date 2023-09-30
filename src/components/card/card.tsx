@@ -1,5 +1,5 @@
 import { component$, Slot, useSignal, useVisibleTask$ } from "@builder.io/qwik";
-import Background from "./background.min.mjs";
+import { Background } from "./background";
 
 export default component$(() => {
   const container = useSignal<HTMLDivElement>();

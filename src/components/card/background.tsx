@@ -1,6 +1,3 @@
-// Compiled with TSPlayground {Tyescript, ES5, None, ESNext}
-// Compiled with Closure Compiler {Advanced}
-
 const opacityMax = 0.1;
 const scaleMax = 1;
 const opacityStep = 0.005;
