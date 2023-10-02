@@ -120,10 +120,10 @@ export class Background {
       if (deltaTime >= frameInterval) {
         lastFrameTime = currentTime;
 
-        const inOut = this.exit ? "out" : "in";
+        const fadeDirection = this.exit ? "out" : "in";
         this.moveTowards(this.target);
-        this.adjustOrb("opacity", inOut, opacityMax, opacityStep);
-        this.adjustOrb("scale", inOut, scaleMax, scaleStep);
+        this.adjustOrb("opacity", fadeDirection, opacityMax, opacityStep);
+        this.adjustOrb("scale", fadeDirection, scaleMax, scaleStep);
         this.update();
       }
 
