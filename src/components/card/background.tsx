@@ -5,6 +5,7 @@ const scaleStep = 0.05;
 const distanceThreshold = 0.025;
 const baseScale = 8;
 const targetFrameRate = 90;
+const maxVelocity = 10;
 
 interface Point {
   x: number;
@@ -21,6 +22,8 @@ export class Background {
   private position: Point = { x: 0, y: 0 };
   private target: Point = { x: 0, y: 0 };
   private offset: Point = { x: 0, y: 0 };
+  private velocity: Point = { x: 0, y: 0 };
+  private passedCenter = false;
 
   constructor(gradientRef: HTMLDivElement, containerRef: HTMLDivElement) {
     this.gradientRef = gradientRef;
@@ -75,7 +78,11 @@ export class Background {
     const widthThreshold = this.containerRef!.clientWidth * distanceThreshold;
     const heightThreshold = this.containerRef!.clientHeight * distanceThreshold;
 
-    return deltaX < widthThreshold && deltaY < heightThreshold;
+    if (!this.passedCenter) {
+      this.passedCenter = deltaX < widthThreshold && deltaY < heightThreshold;
+    }
+
+    return this.passedCenter;
   }
 
   private updateOffset() {
@@ -86,17 +93,29 @@ export class Background {
     const { x: targetX, y: targetY } = target;
     const { x: posX, y: posY } = this.position;
 
-    const ax = (targetX - posX) * this.acceleration;
-    const ay = (targetY - posY) * this.acceleration;
+    const desiredVelocityX = (targetX - posX) * this.acceleration;
+    const desiredVelocityY = (targetY - posY) * this.acceleration;
 
-    this.position.x += ax;
-    this.position.y += ay;
+    this.velocity.x += (desiredVelocityX - this.velocity.x) * this.acceleration;
+    this.velocity.y += (desiredVelocityY - this.velocity.y) * this.acceleration;
+
+    const velocityMagnitude = Math.hypot(this.velocity.x, this.velocity.y);
+
+    if (velocityMagnitude > maxVelocity) {
+      const scaleFactor = maxVelocity / velocityMagnitude;
+      this.velocity.x *= scaleFactor;
+      this.velocity.y *= scaleFactor;
+    }
+
+    this.position.x += this.velocity.x;
+    this.position.y += this.velocity.y;
   }
 
   private attach = () => {
     const onEnterOrLeave = (event: MouseEvent) => {
       this.exit = event.type === "mouseleave";
       this.target = this.exit ? this.center() : this.target;
+      this.passedCenter = false;
     };
 
     const onMouseMove = ({ clientX, clientY }: MouseEvent) => {
