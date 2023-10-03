@@ -31,18 +31,21 @@ export class Circle {
   }
 
   getClosestEdge(width: number, height: number) {
-    const { x, y, translateX, translateY, size } = this;
     return Math.min(
-      x + translateX - size,
-      width - x - translateX - size,
-      y + translateY - size,
-      height - y - translateY - size,
+      this.x + this.translateX - this.size,
+      width - this.x - this.translateX - this.size,
+      this.y + this.translateY - this.size,
+      height - this.y - this.translateY - this.size,
     );
   }
 
   inBounds(width: number, height: number) {
-    const { x, y, size } = this;
-    return x < -size || x > width + size || y < -size || y > height + size;
+    return (
+      this.x < -this.size ||
+      this.x > width + this.size ||
+      this.y < -this.size ||
+      this.y > height + this.size
+    );
   }
 
   animateMotion(
