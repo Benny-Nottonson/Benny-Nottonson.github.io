@@ -6,6 +6,7 @@ export class Circle {
   private size: number;
   private alpha = 0;
   private targetAlpha: number;
+  private scaleFactor: number;
   private dx: number;
   private dy: number;
   private magnetism: number;
@@ -14,11 +15,12 @@ export class Circle {
     const { width, height } = canvasContainer.getBoundingClientRect();
     this.x = Math.floor(Math.random() * width);
     this.y = Math.floor(Math.random() * height);
-    this.size = Math.random() * 1.9 + 0.1;
-    this.targetAlpha = parseFloat((Math.random() * 0.6 + 0.1).toFixed(1));
-    this.dx = (Math.random() - 0.5) * 0.2;
-    this.dy = (Math.random() - 0.5) * 0.2;
-    this.magnetism = 0.1 + Math.random() * 4;
+    this.size = Math.random() * 1.4 + 0.1;
+    this.scaleFactor = (1 / this.size) * 2.5;
+    this.targetAlpha = Math.random() * 0.5 + 0.1 / this.scaleFactor;
+    this.dx = ((Math.random() - 0.5) * 0.2) / this.scaleFactor;
+    this.dy = ((Math.random() - 0.5) * 0.2) / this.scaleFactor;
+    this.magnetism = 0.1 + (Math.random() * 4) / this.scaleFactor;
   }
 
   draw(context: CanvasRenderingContext2D, dpr: number) {
@@ -60,8 +62,10 @@ export class Circle {
     } else {
       this.alpha = this.targetAlpha * remapClosestEdge;
     }
-    this.x += this.dx;
-    this.y += this.dy;
+
+    this.x += this.dx * this.scaleFactor;
+    this.y += this.dy * this.scaleFactor;
+
     this.translateX +=
       (mouse.x / (staticity / this.magnetism) - this.translateX) / ease;
     this.translateY +=
