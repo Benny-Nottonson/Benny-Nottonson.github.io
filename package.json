@@ -23,8 +23,8 @@
     "tailwindcss-debug-screens": "^2.2.1",
     "typescript": "^5.2.2",
     "undici": "^5.25.4",
-    "vercel": "^32.3.1",
-    "vite": "^4.4.10",
+    "vercel": "^32.4.1",
+    "vite": "^4.4.11",
     "vite-tsconfig-paths": "^4.2.1"
   },
   "description": "App with Routing built-in ready to create your app",
