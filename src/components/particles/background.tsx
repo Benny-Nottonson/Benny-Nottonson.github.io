@@ -91,7 +91,6 @@ export class Background {
 
   private attach = () => {
     this.initCanvas();
-    window.addEventListener("resize", this.resizeCanvas);
     window.addEventListener("mousemove", this.onMouseMove);
   };
 }
