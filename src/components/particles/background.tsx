@@ -25,7 +25,7 @@ export class Background {
   }
 
   private resizeCanvas = () => {
-    const { width, height } = this.canvasRef.getBoundingClientRect();
+    const { width, height } = document.body.getBoundingClientRect();
     const dpr = this.dpr;
     this.canvasRef.width = width * dpr * 3;
     this.canvasRef.height = height * dpr * 3;
@@ -92,5 +92,6 @@ export class Background {
   private attach = () => {
     this.initCanvas();
     window.addEventListener("mousemove", this.onMouseMove);
+    window.addEventListener("resize", this.resizeCanvas);
   };
 }
