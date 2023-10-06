@@ -11,5 +11,13 @@ export default defineConfig(() => {
         "Cache-Control": "public, max-age=600",
       },
     },
+    build: {
+      target: "esnext",
+      outDir: "dist",
+      minify: true,
+      rollupOptions: {
+        external: ["@builder.io/qwik"],
+      },
+    }
   };
 });
