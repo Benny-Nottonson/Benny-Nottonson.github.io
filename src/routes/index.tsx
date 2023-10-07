@@ -1,4 +1,4 @@
-import { component$ } from "@builder.io/qwik";
+import { component$, useVisibleTask$ } from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";
 import Particles from "../components/particles/particles";
 
@@ -9,6 +9,16 @@ const navigation = [
 ];
 
 export default component$(() => {
+  useVisibleTask$(() => {
+    document.body.style.overflow = "hidden";
+    document.body.style.overflowY = "hidden";
+    document.styleSheets[0].insertRule(
+      "html { overflow: hidden; overflow-y: hidden; }",
+      0,
+    );
+    document.body.style.position = "relative";
+  });
+
   return (
     <div class="flex flex-col items-center justify-center w-full h-screen overflow-hidden bg-gradient-to-tl from-black via-zinc-600/20 to-black">
       <nav class="my-16 animate-fade-in">

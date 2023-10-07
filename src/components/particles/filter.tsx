@@ -2,7 +2,7 @@ import { component$ } from "@builder.io/qwik";
 
 export default component$(() => {
   return (
-    <svg class="absolute top-0 left-0 pointer-events-none">
+    <svg class="absolute top-0 left-0 pointer-events-none overflow-hidden">
       <filter id="liquid">
         <feTurbulence baseFrequency="0.02" numOctaves="2"></feTurbulence>
         <feDisplacementMap in="SourceGraphic" scale="100">
