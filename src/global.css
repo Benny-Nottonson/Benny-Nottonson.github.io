@@ -39,6 +39,8 @@ html {
     "Segoe UI Emoji",
     "Segoe UI Symbol",
     "Noto Color Emoji";
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
 
 body {
