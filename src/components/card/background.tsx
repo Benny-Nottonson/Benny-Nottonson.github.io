@@ -125,7 +125,14 @@ export class Background {
 
     this.containerRef!.addEventListener("mouseenter", onEnterOrLeave);
     this.containerRef!.addEventListener("mouseleave", onEnterOrLeave);
-    this.containerRef!.addEventListener("mousemove", onMouseMove);
+    const debouncedMouseMove = debounce(onMouseMove, 4);
+    this.containerRef!.addEventListener("mousemove", debouncedMouseMove);
+
+    return () => {
+      this.containerRef!.removeEventListener("mouseenter", onEnterOrLeave);
+      this.containerRef!.removeEventListener("mouseleave", onEnterOrLeave);
+      this.containerRef!.removeEventListener("mousemove", debouncedMouseMove);
+    };
   };
 
   private animate() {
@@ -151,4 +158,14 @@ export class Background {
 
     updateFrame();
   }
+}
+
+function debounce(func: Function, delay: number) {
+  let timeoutId: number;
+  return function (...args: any[]) {
+    clearTimeout(timeoutId);
+    timeoutId = window.setTimeout(() => {
+      func.apply(null, args);
+    }, delay);
+  };
 }
