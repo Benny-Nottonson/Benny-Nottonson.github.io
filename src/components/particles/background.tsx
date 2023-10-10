@@ -22,6 +22,7 @@ export class Background {
     this.particleCount = quantity;
     this.context = this.canvasRef.getContext("2d")!;
     this.attach();
+    this.canvasRef.style.filter = "url(#liquid)";
   }
 
   private resizeCanvas = () => {
