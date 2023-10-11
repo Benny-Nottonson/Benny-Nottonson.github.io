@@ -21,16 +21,15 @@ export class Background {
     this.containerRef = containerRef;
     this.particleCount = quantity;
     this.context = this.canvasRef.getContext("2d")!;
-    this.attach();
     this.canvasRef.style.filter = "url(#liquid)";
+    this.attach();
   }
 
   private resizeCanvas = () => {
     const { width, height } = document.body.getBoundingClientRect();
-    const dpr = this.dpr;
-    this.canvasRef.width = width * dpr * 3;
-    this.canvasRef.height = height * dpr * 3;
-    this.context.scale(dpr, dpr);
+    this.canvasRef.width = width * this.dpr * 3;
+    this.canvasRef.height = height * this.dpr * 3;
+    this.context.scale(this.dpr, this.dpr);
   };
 
   private onMouseMove = (event: MouseEvent) => {
@@ -52,35 +51,25 @@ export class Background {
   private drawParticles = () => {
     this.clearContext();
     for (let i = 0; i < this.particleCount; i++) {
-      this.drawCircle(new Circle(this.containerRef));
+      const circle = new Circle(this.containerRef);
+      this.drawCircle(circle);
     }
   };
-
-  private remapValue = (
-    value: number,
-    start1: number,
-    end1: number,
-    start2: number,
-    end2: number,
-  ): number => ((value - start1) * (end2 - start2)) / (end1 - start1) + start2;
 
   private animate = () => {
     this.clearContext();
     const { width, height } = this.canvasRef.getBoundingClientRect();
-    this.circles = this.circles.filter((circle) => {
+
+    this.circles = this.circles.map((circle) => {
       const closestEdge = circle.getClosestEdge(width, height);
-      const remapClosestEdge = parseFloat(
-        this.remapValue(closestEdge, 0, 20, 0, 1).toFixed(2),
-      );
+      const remapClosestEdge = parseFloat((closestEdge / 20).toFixed(2));
       circle.animateMotion(remapClosestEdge, ease, this.mouse, staticity);
-      if (circle.inBounds(width, height)) {
-        this.drawCircle(new Circle(this.containerRef));
-        return false;
-      } else {
-        circle.draw(this.context, this.dpr);
-        return true;
-      }
+      circle.inBounds(width, height)
+        ? this.drawCircle(new Circle(this.containerRef), true)
+        : circle.draw(this.context, this.dpr);
+      return circle;
     });
+
     window.requestAnimationFrame(this.animate);
   };
 
@@ -93,6 +82,8 @@ export class Background {
   private attach = () => {
     this.initCanvas();
     window.addEventListener("mousemove", this.onMouseMove);
-    window.addEventListener("resize", this.resizeCanvas);
+    window.addEventListener("resize", () => {
+      window.requestAnimationFrame(this.resizeCanvas);
+    });
   };
 }
