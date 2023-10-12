@@ -5,18 +5,13 @@ import Particles from "../components/particles/particles";
 const navigation = [
   { name: "Projects", href: "/projects" },
   { name: "Contact", href: "/contact" },
-  { name: "Resume", href: "/resume" },
+  { name: "Resume", href: "Tech.pdf" },
 ];
 
 export default component$(() => {
   useVisibleTask$(() => {
-    document.body.style.overflow = "hidden";
-    document.body.style.overflowY = "hidden";
-    document.styleSheets[0].insertRule(
-      "html { overflow: hidden; overflow-y: hidden; }",
-      0,
-    );
-    document.body.style.position = "relative";
+    document.body.style.cssText =
+      "overflow: hidden; overflow-y: hidden; position: relative;";
   });
 
   return (
@@ -28,6 +23,7 @@ export default component$(() => {
               <a
                 key={item.href}
                 href={item.href}
+                target={item.href === "Tech.pdf" ? "_blank" : "_self"}
                 class="text-sm duration-500 text-zinc-500 hover:text-zinc-300"
               >
                 {item.name}

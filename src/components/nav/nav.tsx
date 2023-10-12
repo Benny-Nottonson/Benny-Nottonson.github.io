@@ -3,7 +3,8 @@ import SocialIcon from "../socialIcon/socialIcon";
 
 const NavLink = ({ name }: { name: string }) => (
   <a
-    href={`/${name.toLowerCase()}`}
+    href={name == "Resume" ? "/Tech.pdf" : `/${name.toLowerCase()}`}
+    target={name == "Resume" ? "_blank" : "_self"}
     class="duration-200 text-zinc-400 hover:text-zinc-100"
   >
     {name}
