@@ -34,13 +34,10 @@ export class Background {
     this.animate();
   }
 
-  private getOffset() {
+  private getOffset = () => {
     const { left, top } = this.containerRef!.getBoundingClientRect();
-    return {
-      x: left,
-      y: top,
-    };
-  }
+    return { x: left, y: top };
+  };
 
   private update() {
     this.gradientRef!.style.background = `radial-gradient(circle at ${
@@ -85,10 +82,6 @@ export class Background {
     return this.passedCenter;
   }
 
-  private updateOffset() {
-    this.offset = this.getOffset();
-  }
-
   private moveTowards(target: { x: number; y: number }) {
     const { x: targetX, y: targetY } = target;
     const { x: posX, y: posY } = this.position;
@@ -120,7 +113,7 @@ export class Background {
 
     const onMouseMove = ({ clientX, clientY }: MouseEvent) => {
       this.target = { x: clientX - this.offset.x, y: clientY - this.offset.y };
-      this.updateOffset();
+      this.offset = this.getOffset();
     };
 
     this.containerRef!.addEventListener("mouseenter", onEnterOrLeave);
@@ -160,12 +153,10 @@ export class Background {
   }
 }
 
-function debounce(func: Function, delay: number) {
-  let timeoutId: number;
-  return function (...args: any[]) {
+const debounce = (fn: Function, delay: number) => {
+  let timeoutId: ReturnType<typeof setTimeout>;
+  return function (this: any, ...args: any[]) {
     clearTimeout(timeoutId);
-    timeoutId = window.setTimeout(() => {
-      func.apply(null, args);
-    }, delay);
+    timeoutId = setTimeout(() => fn.apply(this, args), delay);
   };
-}
+};
