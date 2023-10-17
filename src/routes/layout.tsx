@@ -22,34 +22,12 @@ export const useProjects = routeLoader$(async () => {
 
   const projects: Record<string, Project> = {};
 
-  for (const fileName in projectFiles) {
+  for (const [fileName, loadProject] of Object.entries(projectFiles)) {
     const slug = fileName
       .replace("../content/projects/", "")
       .replace(".mdx", "");
-    const fileContents = await projectFiles[fileName]();
-    const { frontmatter } = fileContents;
-
-    const {
-      date = null,
-      published = false,
-      title = "",
-      description = "",
-      url = "",
-      repository = "",
-      ...data
-    } = frontmatter;
-
-    projects[slug] = {
-      slug,
-      published,
-      date,
-      title,
-      description,
-      url,
-      repository,
-      content: noSerialize(fileContents.default()),
-      ...data,
-    };
+    const { frontmatter, default: content } = await loadProject();
+    projects[slug] = { slug, content: noSerialize(content()), ...frontmatter };
   }
 
   return projects;
