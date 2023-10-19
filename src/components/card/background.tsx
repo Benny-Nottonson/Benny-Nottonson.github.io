@@ -45,6 +45,8 @@ export class Background {
     }px ${this.position.y}px, rgba(255, 255, 255, ${
       this.opacity
     }) 0, rgba(0, 0, 0, ${this.opacity}) ${baseScale * this.scale}rem`;
+
+    return this;
   }
 
   private center() {
@@ -67,6 +69,8 @@ export class Background {
     if (shouldAdjust) {
       this[property] += (goingIn ? 1 : -1) * step;
     }
+
+    return this;
   }
 
   private nearCenter() {
@@ -102,6 +106,8 @@ export class Background {
 
     this.position.x += this.velocity.x;
     this.position.y += this.velocity.y;
+
+    return this;
   }
 
   private attach = () => {
@@ -140,10 +146,10 @@ export class Background {
         lastFrameTime = currentTime;
 
         const fadeDirection = this.exit ? "out" : "in";
-        this.moveTowards(this.target);
-        this.adjustOrb("opacity", fadeDirection, opacityMax, opacityStep);
-        this.adjustOrb("scale", fadeDirection, scaleMax, scaleStep);
-        this.update();
+        this.moveTowards(this.target)
+          .adjustOrb("opacity", fadeDirection, opacityMax, opacityStep)
+          .adjustOrb("scale", fadeDirection, scaleMax, scaleStep)
+          .update();
       }
 
       requestAnimationFrame(updateFrame);
