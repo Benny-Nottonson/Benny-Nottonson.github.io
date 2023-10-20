@@ -30,8 +30,7 @@ export class Background {
     this.containerRef = containerRef;
     this.position = this.target = this.center();
     this.offset = this.getOffset();
-    this.attach();
-    this.animate();
+    this.attach().animate();
   }
 
   private getOffset = () => {
@@ -45,7 +44,6 @@ export class Background {
     }px ${this.position.y}px, rgba(255, 255, 255, ${
       this.opacity
     }) 0, rgba(0, 0, 0, ${this.opacity}) ${baseScale * this.scale}rem`;
-
     return this;
   }
 
@@ -65,48 +63,39 @@ export class Background {
     const shouldAdjust =
       (goingIn && currentValue < max) ||
       (!goingIn && currentValue > 0 && this.nearCenter());
-
     if (shouldAdjust) {
       this[property] += (goingIn ? 1 : -1) * step;
     }
-
     return this;
   }
 
   private nearCenter() {
-    const deltaX = Math.abs(this.position.x - this.target.x);
-    const deltaY = Math.abs(this.position.y - this.target.y);
-    const widthThreshold = this.containerRef!.clientWidth * distanceThreshold;
-    const heightThreshold = this.containerRef!.clientHeight * distanceThreshold;
-
     if (!this.passedCenter) {
+      const deltaX = Math.abs(this.position.x - this.target.x);
+      const deltaY = Math.abs(this.position.y - this.target.y);
+      const widthThreshold = this.containerRef!.clientWidth * distanceThreshold;
+      const heightThreshold =
+        this.containerRef!.clientHeight * distanceThreshold;
       this.passedCenter = deltaX < widthThreshold && deltaY < heightThreshold;
     }
-
     return this.passedCenter;
   }
 
   private moveTowards(target: { x: number; y: number }) {
     const { x: targetX, y: targetY } = target;
     const { x: posX, y: posY } = this.position;
-
     const desiredVelocityX = (targetX - posX) * this.acceleration;
     const desiredVelocityY = (targetY - posY) * this.acceleration;
-
     this.velocity.x += (desiredVelocityX - this.velocity.x) * this.acceleration;
     this.velocity.y += (desiredVelocityY - this.velocity.y) * this.acceleration;
-
     const velocityMagnitude = Math.hypot(this.velocity.x, this.velocity.y);
-
     if (velocityMagnitude > maxVelocity) {
       const scaleFactor = maxVelocity / velocityMagnitude;
       this.velocity.x *= scaleFactor;
       this.velocity.y *= scaleFactor;
     }
-
     this.position.x += this.velocity.x;
     this.position.y += this.velocity.y;
-
     return this;
   }
 
@@ -116,45 +105,32 @@ export class Background {
       this.target = this.exit ? this.center() : this.target;
       this.passedCenter = false;
     };
-
     const onMouseMove = ({ clientX, clientY }: MouseEvent) => {
       this.target = { x: clientX - this.offset.x, y: clientY - this.offset.y };
       this.offset = this.getOffset();
     };
-
     this.containerRef!.addEventListener("mouseenter", onEnterOrLeave);
     this.containerRef!.addEventListener("mouseleave", onEnterOrLeave);
-    const debouncedMouseMove = debounce(onMouseMove, 4);
-    this.containerRef!.addEventListener("mousemove", debouncedMouseMove);
-
-    return () => {
-      this.containerRef!.removeEventListener("mouseenter", onEnterOrLeave);
-      this.containerRef!.removeEventListener("mouseleave", onEnterOrLeave);
-      this.containerRef!.removeEventListener("mousemove", debouncedMouseMove);
-    };
+    this.containerRef!.addEventListener("mousemove", debounce(onMouseMove, 4));
+    return this;
   };
 
   private animate() {
     const frameInterval = 1000 / targetFrameRate;
     let lastFrameTime = performance.now();
-
     const updateFrame = () => {
       const currentTime = performance.now();
       const deltaTime = currentTime - lastFrameTime;
-
       if (deltaTime >= frameInterval) {
         lastFrameTime = currentTime;
-
         const fadeDirection = this.exit ? "out" : "in";
         this.moveTowards(this.target)
           .adjustOrb("opacity", fadeDirection, opacityMax, opacityStep)
           .adjustOrb("scale", fadeDirection, scaleMax, scaleStep)
           .update();
       }
-
       requestAnimationFrame(updateFrame);
     };
-
     updateFrame();
   }
 }

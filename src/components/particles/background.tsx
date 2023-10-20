@@ -30,6 +30,7 @@ export class Background {
     this.canvasRef.width = width * this.dpr * 3;
     this.canvasRef.height = height * this.dpr * 3;
     this.context.scale(this.dpr, this.dpr);
+    return this;
   };
 
   private onMouseMove = (event: MouseEvent) => {
@@ -54,12 +55,12 @@ export class Background {
       const circle = new Circle(this.containerRef);
       this.drawCircle(circle);
     }
+    return this;
   };
 
   private animate = () => {
     this.clearContext();
     const { width, height } = this.canvasRef.getBoundingClientRect();
-
     this.circles = this.circles.map((circle) => {
       const closestEdge = circle.getClosestEdge(width, height);
       const remapClosestEdge = parseFloat((closestEdge / 20).toFixed(2));
@@ -69,14 +70,11 @@ export class Background {
         : circle.draw(this.context, this.dpr);
       return circle;
     });
-
     window.requestAnimationFrame(this.animate);
   };
 
   private initCanvas = () => {
-    this.resizeCanvas();
-    this.drawParticles();
-    this.animate();
+    this.resizeCanvas().drawParticles().animate();
   };
 
   private attach = () => {

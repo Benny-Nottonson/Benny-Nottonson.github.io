@@ -62,10 +62,8 @@ export class Circle {
     } else {
       this.alpha = this.targetAlpha * remapClosestEdge;
     }
-
     this.x += this.dx * this.scaleFactor;
     this.y += this.dy * this.scaleFactor;
-
     this.translateX +=
       (mouse.x / (staticity / this.magnetism) - this.translateX) / ease;
     this.translateY +=
