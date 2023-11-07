@@ -64,9 +64,10 @@ export class Circle {
     }
     this.x += this.dx * this.scaleFactor;
     this.y += this.dy * this.scaleFactor;
+    const translationOffset = staticity / this.magnetism;
     this.translateX +=
-      (mouse.x / (staticity / this.magnetism) - this.translateX) / ease;
+      (mouse.x / translationOffset - this.translateX) / ease;
     this.translateY +=
-      (mouse.y / (staticity / this.magnetism) - this.translateY) / ease;
+      (mouse.y / translationOffset - this.translateY) / ease;
   }
 }
