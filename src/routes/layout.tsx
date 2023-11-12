@@ -1,18 +1,7 @@
-import type { NoSerialize } from "@builder.io/qwik";
 import { component$, noSerialize, Slot } from "@builder.io/qwik";
 import { type RequestHandler, routeLoader$ } from "@builder.io/qwik-city";
 import type { JSXNode } from "@builder.io/qwik/jsx-runtime";
-
-export interface Project {
-  slug: string;
-  published: boolean;
-  date: string;
-  title: string;
-  description: string;
-  url: string;
-  repository?: string;
-  content: NoSerialize<JSXNode>;
-}
+import type { Project } from "./types";
 
 export const useProjects = routeLoader$(async () => {
   const projectFiles = import.meta.glob("../content/projects/*.mdx") as Record<

@@ -1,6 +1,6 @@
 import { component$ } from "@builder.io/qwik";
 import Card from "../card/card";
-import type { Project } from "~/routes/layout";
+import type { Project } from "~/routes/types";
 
 interface Props {
   project: Project;
