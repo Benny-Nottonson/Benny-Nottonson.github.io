@@ -47,5 +47,9 @@
     "preview": "qwik build preview && vite preview --open",
     "start": "vite --open --mode ssr",
     "qwik": "qwik"
+  },
+  "dependencies": {
+    "install": "^0.13.0",
+    "npm": "^10.2.3"
   }
 }

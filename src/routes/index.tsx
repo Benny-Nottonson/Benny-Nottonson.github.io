@@ -18,15 +18,15 @@ export default component$(() => {
     <div class="flex flex-col items-center justify-center w-full h-screen overflow-hidden bg-gradient-to-tl from-black via-zinc-600/20 to-black">
       <nav class="my-16 animate-fade-in">
         <ul class="flex flex-row items-center justify-center gap-4">
-        {navigation.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                target={item.href === "Tech.pdf" ? "_blank" : "_self"}
-                class="text-sm duration-500 text-zinc-500 hover:text-zinc-300"
-              >
-                {item.name}
-              </a>
+          {navigation.map((item) => (
+            <a
+              key={item.href}
+              href={item.href}
+              target={item.href === "Tech.pdf" ? "_blank" : "_self"}
+              class="text-sm duration-500 text-zinc-500 hover:text-zinc-300"
+            >
+              {item.name}
+            </a>
           ))}
         </ul>
       </nav>
