@@ -17,9 +17,8 @@ export default component$(() => {
   return (
     <div class="flex flex-col items-center justify-center w-full h-screen overflow-hidden bg-gradient-to-tl from-black via-zinc-600/20 to-black">
       <nav class="my-16 animate-fade-in">
-        <ul>
-          <li class="flex items-center justify-center gap-4">
-            {navigation.map((item) => (
+        <ul class="flex flex-row items-center justify-center gap-4">
+        {navigation.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
@@ -28,8 +27,7 @@ export default component$(() => {
               >
                 {item.name}
               </a>
-            ))}
-          </li>
+          ))}
         </ul>
       </nav>
       <div class="hidden w-full h-px animate-glow md:block animate-fade-left bg-gradient-to-r from-zinc-300/0 via-zinc-300/50 to-zinc-300/0" />
