@@ -46,7 +46,7 @@ export default component$(({ project, isFeatured }: Props) => {
             {project.description}
           </p>
           {isFeatured && (
-            <div class="pt-4 bottom-4 md:bottom-8 absolute">
+            <div class="pt-4 bottom-4 md:bottom-8">
               <p class="text-zinc-200 hover:text-zinc-50 lg:block">
                 Read more <span>&rarr;</span>
               </p>
