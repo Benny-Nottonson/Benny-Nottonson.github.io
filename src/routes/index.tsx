@@ -41,12 +41,12 @@ export default component$(() => {
       <div class="hidden w-full h-px animate-glow md:block animate-fade-right bg-gradient-to-r from-zinc-300/0 via-zinc-300/50 to-zinc-300/0" />
       <div class="my-16 text-center animate-fade-in mx-16">
         <h2 class="text-sm text-zinc-500 ">
-          Hi, my name is Benny, I'm working on{<br />}
+          Hi, my name is Benny, I'm working at{<br />}
           <a
-            href="./projects/valterTennis"
+            href="https://www.selleb.com/"
             class="underline duration-500 hover:text-zinc-300"
           >
-            valterTennis
+            Selleb
           </a>{" "}
           currently.
         </h2>
