@@ -1,6 +1,6 @@
-'use client';
-import { useEffect, useRef } from 'react';
-import { Circle } from './circle';
+"use client";
+import { useEffect, useRef } from "react";
+import { Circle } from "./circle";
 
 export function Particles({ quantity }: { quantity: number }) {
   const stateRef = useRef({
@@ -15,11 +15,11 @@ export function Particles({ quantity }: { quantity: number }) {
   });
 
   useEffect(() => {
-    const canvas = document.querySelector('canvas');
+    const canvas = document.querySelector("canvas");
     if (!canvas) return;
     stateRef.current.canvas = canvas;
 
-    const context = canvas.getContext('2d');
+    const context = canvas.getContext("2d");
     if (!context) return;
     stateRef.current.context = context;
 
@@ -42,10 +42,14 @@ export function Particles({ quantity }: { quantity: number }) {
 
     handleResize();
 
-    stateRef.current.circles = Array.from({ length: quantity }, () => new Circle(container));
+    stateRef.current.circles = Array.from(
+      { length: quantity },
+      () => new Circle(container),
+    );
 
     const animate = () => {
-      const { context, canvas, circles, width, height, mouse } = stateRef.current;
+      const { context, canvas, circles, width, height, mouse } =
+        stateRef.current;
       if (!context || !canvas) return;
 
       context.clearRect(0, 0, canvas.width, canvas.height);
@@ -62,13 +66,13 @@ export function Particles({ quantity }: { quantity: number }) {
       stateRef.current.mouse.y = e.clientY;
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("resize", handleResize);
 
     return () => {
       cancelAnimationFrame(stateRef.current.animationFrame);
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("resize", handleResize);
     };
   }, [quantity]);
 

@@ -13,14 +13,15 @@ export default {
         foreground: "var(--foreground)",
       },
       backgroundImage: {
-        "gradient-radial": "radial-gradient(50% 50% at 50% 50%, var(--tw-gradient-stops))",
+        "gradient-radial":
+          "radial-gradient(50% 50% at 50% 50%, var(--tw-gradient-stops))",
       },
       animation: {
         "fade-in": "fade-in 2.5s ease-in-out forwards",
-        "title": "title 2.5s ease-out forwards", 
+        title: "title 2.5s ease-out forwards",
         "fade-left": "fade-left 2.5s ease-in-out forwards",
-        "fade-right": "fade-right 2.5s ease-in-out forwards"
-      }
+        "fade-right": "fade-right 2.5s ease-in-out forwards",
+      },
     },
   },
   plugins: [],
