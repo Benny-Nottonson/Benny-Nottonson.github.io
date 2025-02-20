@@ -24,10 +24,10 @@ const page = () => {
 
         <FramerWrapper y={0} x={100}>
           <p className=" font-poppins text-xl w-full text-primary max-sm:text-lg ">
-            I am a Software Engineer from Long Beach, California,
-            USA. I&apos;m passionate about making meaningful projects and
-            contributing to open-source communities. I specialize in modern
-            SwiftUI, TypeScript, and SQL, focusing on creating seamless products.
+            I am a Software Engineer from Long Beach, California, USA. I&apos;m
+            passionate about making meaningful projects and contributing to
+            open-source communities. I specialize in modern SwiftUI, TypeScript,
+            and SQL, focusing on creating seamless products.
           </p>
         </FramerWrapper>
       </div>

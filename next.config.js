@@ -1,8 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    serverExternalPackages: [
-        '@react-email/render',
-    ]
-}
+  serverExternalPackages: ["@react-email/render"],
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

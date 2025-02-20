@@ -34,8 +34,10 @@ const educationPage = () => {
             </div>
             <p className=" font-poppins text-base w-full text-primary  max-sm:text-xs">
               I am currently on academic leave from California State University,
-              Long Beach, where I am pursuing a Bachelor of Science in Computer. 
-              While I deeply value my education, I am currently taking a break to focus on working full time at <a href="https://www.selleb.com">Selleb</a>.
+              Long Beach, where I am pursuing a Bachelor of Science in Computer.
+              While I deeply value my education, I am currently taking a break
+              to focus on working full time at{" "}
+              <a href="https://www.selleb.com">Selleb</a>.
             </p>
           </FramerWrapper>
         </div>

@@ -36,8 +36,8 @@ const skillPage = () => {
     },
     {
       name: "Mojo",
-      icon: "https://modular-mojotools.gallerycdn.vsassets.io/extensions/modular-mojotools/vscode-mojo/25.1.0/1739461294005/Microsoft.VisualStudio.Services.Icons.Default"
-    }
+      icon: "https://modular-mojotools.gallerycdn.vsassets.io/extensions/modular-mojotools/vscode-mojo/25.1.0/1739461294005/Microsoft.VisualStudio.Services.Icons.Default",
+    },
   ];
 
   const frameworks = [
@@ -55,24 +55,24 @@ const skillPage = () => {
     },
     {
       name: "UML",
-      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/unifiedmodelinglanguage/unifiedmodelinglanguage-original.svg"
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/unifiedmodelinglanguage/unifiedmodelinglanguage-original.svg",
     },
     {
       name: "Pytorch",
-      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg"
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg",
     },
     {
       name: "Tensorflow",
-      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tesorflow/tesorflow-original.svg"
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tesorflow/tesorflow-original.svg",
     },
     {
       name: "Numpy",
-      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/numpy/numpy-original.svg"
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/numpy/numpy-original.svg",
     },
     {
       name: "Pandas",
-      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg"
-    }
+      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg",
+    },
   ];
 
   const tools = [

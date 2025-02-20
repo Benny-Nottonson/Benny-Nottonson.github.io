@@ -40,31 +40,37 @@ const morePage = () => {
       </div>
       <div className="h-auto w-full flex flex-wrap gap-3 p-2">
         {morelink.map((value, indx) => {
-          
           return (
-            <FramerWrapper key={indx} className="max-w-[32%] max-lg:max-w-full" y={0} scale={0.8} delay={indx/4} duration={0.15}>
-            <Card  className="w-full">
-              <CardHeader>
-                <CardTitle>{value.title}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-base font-poppins ">{value.description}</p>
-              </CardContent>
-              <CardFooter>
-                <Link
-                  href={value.link}
-                  target="blank"
-                  className={cn(
-                    buttonVariants({ variant: "default", size: "lg" }),
-                    "w-full gap-3"
-                  )}
-                >
-                  {" "}
-                  <ExternalLink />
-                  Visit here
-                </Link>
-              </CardFooter>
-            </Card>
+            <FramerWrapper
+              key={indx}
+              className="max-w-[32%] max-lg:max-w-full"
+              y={0}
+              scale={0.8}
+              delay={indx / 4}
+              duration={0.15}
+            >
+              <Card className="w-full">
+                <CardHeader>
+                  <CardTitle>{value.title}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-base font-poppins ">{value.description}</p>
+                </CardContent>
+                <CardFooter>
+                  <Link
+                    href={value.link}
+                    target="blank"
+                    className={cn(
+                      buttonVariants({ variant: "default", size: "lg" }),
+                      "w-full gap-3",
+                    )}
+                  >
+                    {" "}
+                    <ExternalLink />
+                    Visit here
+                  </Link>
+                </CardFooter>
+              </Card>
             </FramerWrapper>
           );
         })}

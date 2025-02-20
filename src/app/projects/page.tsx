@@ -8,12 +8,11 @@ const projectsPage = () => {
   const Projects = [
     {
       title: "Basalt",
-      description:
-        `A Machine Learning framework from scratch in Pure Mojo 🔥`,
+      description: `A Machine Learning framework from scratch in Pure Mojo 🔥`,
       tags: ["Mojo", "Pytorch", "Machine Learning"],
       link: "https://github.com/basalt-org/basalt",
     },
-   
+
     {
       title: "Mojo Marathons",
       description:
@@ -48,7 +47,7 @@ const projectsPage = () => {
         "A JavaScript based proxy server that allows you to fetch from AppLab API without CORS or blacklisting.",
       tags: ["Javascript"],
       link: "https://github.com/Benny-Nottonson/appLabWhitelistProxy",
-    }
+    },
   ];
 
   return (
