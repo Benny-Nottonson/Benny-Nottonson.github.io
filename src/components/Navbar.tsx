@@ -58,14 +58,7 @@ const Navbar = () => {
       ),
       href: '/projects',
     },
-   
-    {
-      title: 'Contact',
-      icon: (
-        <Mail className='h-full w-full ' />
-      ),
-      href: '/contact',
-    },
+
     {
       title: 'More',
       icon: (

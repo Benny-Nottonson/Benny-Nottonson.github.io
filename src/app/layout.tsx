@@ -16,31 +16,23 @@ const rubik = Rubik({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://mdTaquiImam.vercel.app"),
   title: {
     default: siteConfig.name,
     template: `%s - Software Engineer`,
   },
   description: siteConfig.description,
-
-  // added new keywords for seo
   keywords: [
     "md",
-    "taqui",
-    "imam",
+    "benny",
+    "nottonson",
     "Md",
     "MD",
-    "TAQUI",
-    "Taqui",
-    "Imam",
-    "Imam",
-    "Md Taqui Imam",
-    "md taqui imam",
-    "mdtaqui",
-    "mdtaquiimam",
-    "taqui imam",
-    "Taqui Imam",
-    "Taquiimam",
+    "BENNY",
+    "Benny",
+    "Nottonson",
+    "benny nottonson",
+    "Benny Nottonson",
+    "Bennynottonson",
     "portfolio",
     "web developer",
     "web",
@@ -48,19 +40,19 @@ export const metadata: Metadata = {
     "developer",
     "PROGRAMMER ",
     "programmer ",
-    "MD TAQUI IMAM ",
+    "BENNY NOTTONSON ",
     "website",
-    "@Taquiimam",
-    "Taquiimam",
-    "taqui developer",
+    "@Bennynottonson",
+    "Bennynottonson",
+    "benny developer",
   ],
   authors: [
     {
-      name: "Taqui Imam",
-      url: "https://github.com/taqui-786",
+      name: "Benny Nottonson",
+      url: "https://github.com/Benny-Nottonson",
     },
   ],
-  creator: "Taqui imam",
+  creator: "Benny Nottonson",
 
   openGraph: {
     type: "website",
@@ -68,15 +60,13 @@ export const metadata: Metadata = {
     url: siteConfig.url,
     title: siteConfig.name,
     description: siteConfig.description,
-    images: [`${siteConfig.url}/og-image.png`],
     siteName: siteConfig.name,
   },
   twitter: {
     card: "summary_large_image",
     title: siteConfig.name,
     description: siteConfig.description,
-    images: [`${siteConfig.url}/og-image.png`],
-    creator: "@Taquiimam14",
+    creator: "@bennynottonson",
   },
   icons: {
     icon: "/favicon.ico",
@@ -94,10 +84,9 @@ export default function RootLayout({
         <main
           className={cn(
             "flex  relative  break-words h-dvh min-h-screen items-center justify-between pt-14 pb-4 px-40 max-md:p-4 bg-transparent max-sm:pt-20 bg-[radial-gradient(#2f7df4_1px,transparent_1px)] [background-size:16px_16px]",
-            { "bg-white": "#E6E7EB" }
+            { "bg-white": "#282A36" }
           )}
         >
-          {/* NAVBAR ->  */}
           <Navbar />
           {children}
         </main>

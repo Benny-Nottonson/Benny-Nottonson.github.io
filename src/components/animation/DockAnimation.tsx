@@ -6,7 +6,7 @@ import {
   useMotionValue,
   useSpring,
   useTransform,
-  type SpringOptions,
+  BezierDefinition,
   AnimatePresence,
 } from 'framer-motion';
 import {
@@ -32,7 +32,7 @@ type DockProps = {
   distance?: number;
   panelHeight?: number;
   magnification?: number;
-  spring?: SpringOptions;
+  spring?: any;
 };
 type DockItemProps = {
   className?: string;
@@ -49,7 +49,7 @@ type DockIconProps = {
 
 type DocContextType = {
   mouseX: MotionValue;
-  spring: SpringOptions;
+  spring: any;
   magnification: number;
   distance: number;
 };
@@ -160,7 +160,7 @@ function DockItem({ children, className }: DockItemProps) {
       aria-haspopup='true'
     >
       {Children.map(children, (child) =>
-        cloneElement(child as React.ReactElement, { width, isHovered })
+        cloneElement(child as React.ReactElement<any>, { width, isHovered })
       )}
     </motion.div>
   );
